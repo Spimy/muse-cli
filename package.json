@@ -1,0 +1,19 @@
+{
+  "name": "musecli",
+  "version": "1.0.0",
+  "description": "CLI that generates a DiscordJS music bot features for you to build upon from",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Spimy/muse-cli.git"
+  },
+  "author": "Spimy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Spimy/muse-cli/issues"
+  },
+  "homepage": "https://github.com/Spimy/muse-cli#readme"
+}
