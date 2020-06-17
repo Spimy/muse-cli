@@ -1,3 +1,3 @@
 export interface EventListener {
-    listen: (...args: any) => Promise<void>;
+    listen: (...args: any) => Promise<any>;
 }
