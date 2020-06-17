@@ -5,5 +5,5 @@ export interface CommandInfo {
     description?: String;
     aliases?: [];
     usage?: String;
-    permissions: Array<PermissionResolvable>;
+    permissions?: Array<PermissionResolvable>;
 }
