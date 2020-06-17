@@ -1,0 +1,6 @@
+{
+    "version": 1,
+    "packageManager": "npm",
+    "defaultProject": "muse",
+    "projectTemplate": "typescript"
+}
