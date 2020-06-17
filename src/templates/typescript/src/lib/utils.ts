@@ -33,12 +33,13 @@ export class Utils {
 
     }
 
-    loadModules = async (dir: string, command: boolean = false) => {
+    loadModules = async (dir: string) => {
 
         const jsFiles = this.findNested(path.join(__dirname, `${path.sep}${dir}${path.sep}`), ".js");
-        if (jsFiles.length <= 0) return console.log(`There are no ${command ? "commands" : "files"} to load.`);
+        const folderName = dir.split('../')[dir.split('../').length - 1];
+        if (jsFiles.length <= 0) return console.log(`There are no ${folderName} to load.`);
 
-        console.log(`Loading ${jsFiles.length} ${command ? "command" : "file"}${jsFiles.length <= 1 ? "" : "s"}...`);
+        console.log(`Loading ${jsFiles.length} ${folderName.substring(0, folderName.length - 1)}${jsFiles.length <= 1 ? "" : "s"}...`);
         jsFiles.forEach(file => {
             require(file);
         });
