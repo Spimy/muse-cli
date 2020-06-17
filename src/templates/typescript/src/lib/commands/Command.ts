@@ -2,16 +2,14 @@ import { client } from '../../index';
 import { CommandInfo } from './CommandInfo';
 import { CommandExecutor } from './CommandExecutor';
 
-export function Command(commandInfo: CommandInfo) {
+export function Command(info: CommandInfo) {
 
     return function (target: { new(): CommandExecutor }) {
-        client.$commands.set(commandInfo.name, { info: commandInfo, executor: new target() });
+        client.$commands.set(info.name, { info, executor: new target() });
 
-        if (commandInfo.aliases) {
-            commandInfo.aliases.forEach(alias => {
-                client.$aliases.set(alias, commandInfo.name);
-            });
-        }
+        info.aliases?.forEach(alias => {
+            client.$aliases.set(alias, info.name);
+        });
 
     }
 
