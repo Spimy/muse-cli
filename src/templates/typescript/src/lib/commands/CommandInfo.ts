@@ -1,9 +1,9 @@
 import { PermissionResolvable } from 'discord.js';
 
 export interface CommandInfo {
-    name: String;
-    description?: String;
-    aliases?: [];
-    usage?: String;
-    permissions?: Array<PermissionResolvable>;
+    name: string;
+    description?: string;
+    aliases?: string[];
+    usage?: string;
+    permissions?: PermissionResolvable[];
 }
