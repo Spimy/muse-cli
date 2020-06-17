@@ -17,11 +17,18 @@ class MessageEvent implements EventListener {
         if (!message.content.startsWith(prefix) || command === '') return;
 
         let cmd = client.$commands.get(command);
-        if (!cmd) {
-            cmd = client.$commands.get(client.$aliases.get(command)!);
-        }
+        if (!cmd) cmd = client.$commands.get(client.$aliases.get(command)!);
 
-        if (cmd) await cmd.executor.execute(message, args);
+        if (cmd) {
+            const hasPerm: boolean | undefined = cmd.info.permissions?.some(perm => message.member?.permissions.has(perm));
+
+            if (!hasPerm && typeof hasPerm !== 'undefined') {
+                return await client.$commands.get('help')!.executor.execute(message, [cmd.info.name]);
+            }
+
+            const success = await cmd.executor.execute(message, args);
+            if (!success) return await client.$commands.get('help')!.executor.execute(message, [cmd.info.name]);
+        }
 
     }
 
