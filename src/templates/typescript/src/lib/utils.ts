@@ -4,12 +4,6 @@ import MuseClient from './MuseClient';
 
 export class Utils {
 
-    private client: MuseClient;
-
-    constructor(client: MuseClient) {
-        this.client = client;
-    }
-
     private findNested = (dir: string, pattern: string) => {
 
         let results: string[] = [];

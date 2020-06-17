@@ -9,7 +9,7 @@ export default class MuseClient extends Client {
 
     private commands: Collection<string, CommandProps> = new Collection();
     private aliases: Collection<string, string> = new Collection();
-    private utils: Utils = new Utils(this);
+    private utils: Utils = new Utils();
     private config: Config = muse;
 
     constructor(options?: ClientOptions) {
