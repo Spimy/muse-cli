@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import MuseClient from './client';
+import MuseClient from './MuseClient';
 
 export class Utils {
 
