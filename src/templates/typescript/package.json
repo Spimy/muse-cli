@@ -7,11 +7,19 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "concurrently \"tsc -w\" \"nodemon dist/index.js\"",
+    "build": "tsc",
+    "start": "node dist/index.js"
   },
   "author": "Spimy",
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "^14.0.13"
+    "@types/node": "^14.0.13",
+    "nodemon": "^2.0.4",
+    "typescript": "^3.9.5"
+  },
+  "dependencies": {
+    "discord.js": "^12.2.0",
+    "dotenv": "^8.2.0"
   }
 }
