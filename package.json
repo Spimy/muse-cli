@@ -1,8 +1,17 @@
 {
-  "name": "musecli",
+  "name": "muse-cli",
   "version": "1.0.0",
   "description": "CLI that generates a DiscordJS music bot features for you to build upon from",
+  "engines": {
+    "node": ">=12.0.0"
+  },
   "main": "index.js",
+  "bin": {
+    "muse": "index.js"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -15,5 +24,15 @@
   "bugs": {
     "url": "https://github.com/Spimy/muse-cli/issues"
   },
-  "homepage": "https://github.com/Spimy/muse-cli#readme"
+  "homepage": "https://github.com/Spimy/muse-cli#readme",
+  "dependencies": {
+    "arg": "^4.1.3",
+    "chalk": "^4.1.0",
+    "esm": "^3.2.25",
+    "execa": "^4.0.2",
+    "inquirer": "^7.2.0",
+    "listr": "^0.14.3",
+    "ncp": "^2.0.0",
+    "pkg-install": "^1.0.0"
+  }
 }
