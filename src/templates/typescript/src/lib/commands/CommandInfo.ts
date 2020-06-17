@@ -5,5 +5,6 @@ export interface CommandInfo {
     description?: string;
     aliases?: string[];
     usage?: string;
+    category?: string;
     permissions?: PermissionResolvable[];
 }
