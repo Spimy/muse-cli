@@ -1,5 +1,5 @@
 import { client } from '../../index';
-import { EventType } from '../types';
+import { EventType } from '../../types';
 import { EventListener } from './EventListener';
 
 
