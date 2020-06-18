@@ -35,11 +35,19 @@ class Help implements CommandExecutor {
             ].join('\n'));
 
             let categorisedCommands;
+            let uncategorised: { info: string, commands: string };
 
             for (const category of categories) {
                 categorisedCommands = client.$commands.filter(cmd => cmd.info.category === category);
-                embed.addField(category || 'Other', categorisedCommands.map(cmd => `\`${cmd.info.name}\``).join(', '));
+
+                const info = category || 'Uncategorised'
+                const commands = categorisedCommands.map(cmd => `\`${cmd.info.name}\``).join(', ');
+
+                if (info === 'Uncategorised') uncategorised = { info, commands };
+                else embed.addField(category || 'Uncategorised', commands);
             }
+
+            if (uncategorised!) embed.addField(uncategorised!.info, uncategorised!.commands);
 
             message.channel.send(embed);
             return true;
