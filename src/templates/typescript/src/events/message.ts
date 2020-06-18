@@ -13,6 +13,7 @@ class MessageEvent implements EventListener {
         const prefix = client.$config.prefix;
         const args = message.content.slice(prefix.length).split(' ');
         const command = args.shift()!.toLowerCase();
+        const helpCommand = client.$config.helpCommand;
 
         if (!message.content.startsWith(prefix) || command === '') return;
 
@@ -23,11 +24,11 @@ class MessageEvent implements EventListener {
             const hasPerm: boolean | undefined = cmd.info.permissions?.some(perm => message.member?.permissions.has(perm));
 
             if (!hasPerm && typeof hasPerm !== 'undefined') {
-                return await client.$commands.get('help')!.executor.execute(message, [cmd.info.name]);
+                return await client.$commands.get(helpCommand)!.executor.execute(message, [cmd.info.name]);
             }
 
             const success = await cmd.executor.execute(message, args);
-            if (!success) return await client.$commands.get('help')!.executor.execute(message, [cmd.info.name]);
+            if (!success) return await client.$commands.get(helpCommand)!.executor.execute(message, [cmd.info.name]);
         }
 
     }

@@ -3,7 +3,7 @@ import { client } from '../../index';
 import { Command } from '../../lib/commands/Command';
 import { CommandExecutor } from '../../lib/commands/CommandExecutor';
 
-const COMMAND_NAME = 'help';
+const COMMAND_NAME = client.$config.helpCommand;
 
 @Command({
     name: COMMAND_NAME,
