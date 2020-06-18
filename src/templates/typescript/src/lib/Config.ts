@@ -1,4 +1,5 @@
 export interface Config {
-    "prefix": string;
-    "ownerID": string;
+    prefix: string;
+    ownerID: string;
+    helpCommand: string
 }

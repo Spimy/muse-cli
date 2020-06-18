@@ -6,6 +6,7 @@
 
     "muse": {
         "prefix": ">",
-        "ownerID": "206737220818698240"
+        "ownerID": "206737220818698240",
+        "helpCommand": "help"
     }
 }
