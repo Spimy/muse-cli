@@ -30,7 +30,7 @@ const parseArgs = (rawArgs) => {
         template: args._[2],
         skipInstall: args['--skipInstall'] || false,
         packageManager: args['--packageManager'] || DEFAULT_PKG_MANAGER,
-        git: args['--git']
+        git: args['--git'] || false
     };
 
 }
