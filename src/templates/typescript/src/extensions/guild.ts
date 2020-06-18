@@ -3,8 +3,6 @@ import { Queue } from '../lib/music/Queue';
 import { MusicPlayer } from '../lib/music/MusicPlayer';
 import { defaultQueue } from '../lib/music/DefaultQueue';
 
-
-
 export class MuseGuild extends Structures.get('Guild') {
 
     private musicPlayer: MusicPlayer = new MusicPlayer();
