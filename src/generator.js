@@ -55,14 +55,18 @@ const copyTemplateFiles = async (options) => {
 
 const gitInit = async (options) => {
 
-    const projectDirectory = path.resolve(options.targetDirectory, options.name);
+    try {
+        const projectDirectory = path.resolve(options.targetDirectory, options.name);
 
-    const result = execa('git', ['init'], {
-        cwd: projectDirectory
-    });
+        const result = await execa('git', ['init'], {
+            cwd: projectDirectory
+        });
 
-    if (result.failed) {
-        return Promise.reject(new Error('Failed to initialise Git'));
+        if (result.failed) {
+            return Promise.reject(new Error('Failed to initialise Git'));
+        }
+    } catch {
+        gitInit(options);
     }
 
     return;
@@ -95,11 +99,11 @@ export const createBot = async (options) => {
     const tasks = new Listr([
         {
             title: 'Generating muse project files...',
-            task: () => copyTemplateFiles(options)
+            task: async () => await copyTemplateFiles(options)
         },
         {
-            title: 'Initilising Git...',
-            task: () => gitInit(options),
+            title: 'Initialising Git...',
+            task: async () => await gitInit(options),
             enabled: () => options.git
         },
         {
