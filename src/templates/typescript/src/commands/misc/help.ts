@@ -8,7 +8,7 @@ const COMMAND_NAME = 'help';
 @Command({
     name: COMMAND_NAME,
     usage: '[command:string]',
-    description: '',
+    description: 'Need some help with commands because they are too complicated? Look no further! I am here to your aid!',
     category: 'Miscellaneous'
 })
 class Help implements CommandExecutor {
