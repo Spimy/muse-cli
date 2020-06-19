@@ -10,10 +10,10 @@ import { Video } from 'popyt';
 @Command({
     name: 'play',
     description: 'Bored? How about playing some music from youtube? Be sure to be in a voice channel before running this command!',
-    category: "Music",
-    usage: "<URL:string | query:string>"
+    category: 'Music',
+    usage: '<URL:string | query:string>'
 })
-class Play implements CommandExecutor {
+default class implements CommandExecutor {
 
     private readonly urlRegex = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
     private readonly videoRegex = /(?:youtube(?:-nocookie)?\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
@@ -43,11 +43,17 @@ class Play implements CommandExecutor {
         if (this.urlRegex.test(args[0])) {
 
             if (this.videoRegex.test(args[0])) {
-                const result = await client.$youtube.getVideo(args[0]);
-                if (!result) return false;
 
-                const music = this.setMusicInfo(result, member);
-                player.addToQueue({ music, textChannel, voiceChannel, playlist: false });
+                try {
+
+                    const result = await client.$youtube.getVideo(args[0]);
+                    const music = this.setMusicInfo(result, member);
+                    player.addToQueue({ music, textChannel, voiceChannel, playlist: false });
+
+                } catch {
+                    return false;
+                }
+
                 return true;
             }
 
