@@ -6,7 +6,7 @@ import { CommandExecutor } from '../../lib/commands/CommandExecutor';
     name: 'test',
     aliases: ['t']
 })
-class Test implements CommandExecutor {
+default class implements CommandExecutor {
 
     execute = async (message: Message): Promise<boolean> => {
         message.channel.send('test');

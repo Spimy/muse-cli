@@ -11,7 +11,7 @@ const COMMAND_NAME = client.$config.helpCommand;
     description: 'Need some help with commands because they are too complicated? Look no further! I am here to your aid!',
     category: 'Miscellaneous'
 })
-class Help implements CommandExecutor {
+default class implements CommandExecutor {
 
     execute = async (message: Message, args: string[]): Promise<boolean> => {
 
