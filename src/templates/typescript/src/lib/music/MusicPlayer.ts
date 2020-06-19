@@ -1,9 +1,8 @@
-import { MessageEmbed, TextChannel, VoiceChannel } from 'discord.js';
+import { MessageEmbed, TextChannel, VoiceChannel, Guild } from 'discord.js';
 import { Music } from './Music';
 import { Queue } from './Queue';
 import { defaultQueue } from './DefaultQueue';
 import ytdl from 'discord-ytdl-core';
-import { client } from '../..';
 
 interface QueueInfo {
     music: Music;
@@ -54,18 +53,20 @@ export class MusicPlayer {
         if (typeof queue.connection === 'undefined') {
             voiceChannel.join().then(connection => {
                 queue.connection = connection;
-                this.playMusic(queue);
+                this.playMusic(textChannel.guild);
             }).catch(console.error);
         }
 
     }
 
-    public playMusic(queue: Queue) {
+    public playMusic(guild: Guild) {
+
+        const { queue } = guild;
 
         if (typeof queue.current === 'undefined') {
             queue.voiceChannel?.leave();
             queue.textChannel?.send('🎵 Music playback has ended');
-            return queue = defaultQueue;
+            return guild.queue = defaultQueue;
         }
 
         const stream = ytdl(queue.current?.url!, {
@@ -88,7 +89,7 @@ export class MusicPlayer {
                 }
                 queue.current = queue.upcoming.shift();
             }
-            this.playMusic(queue);
+            this.playMusic(guild);
         });
 
         dispatcher?.setVolumeLogarithmic(queue.volume / 100);
@@ -97,7 +98,7 @@ export class MusicPlayer {
             .setTitle("Now Playing:")
             .setDescription(`[${queue.current.title}](${queue.current.url})`)
             .setThumbnail(queue.current.thumbnail)
-            .addField("Duration:", `${client.$utils.formatSeconds(queue.current.duration)}`, true)
+            // .addField("Duration:", `${client.$utils.formatSeconds(queue.current.duration)}`, true)
             .addField("Requested By:", queue.current.requester.user.tag, true)
             .setTimestamp();
 
