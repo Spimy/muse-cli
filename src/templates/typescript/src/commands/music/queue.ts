@@ -36,7 +36,7 @@ default class implements CommandExecutor {
         await this.setEmbed(message.author, embed, queue, info);
 
         const msg = await message.channel.send(embed);
-        if (info.pages.length > 1) await this.pagination(msg, embed, queue, info);
+        if (info.pages.length > 1) await this.paginate(message.author, msg, embed, queue, info);
         return true;
     }
 
@@ -83,7 +83,7 @@ default class implements CommandExecutor {
 
     }
 
-    private pagination = async (message: Message, embed: MessageEmbed, queue: Queue, info: pageInfo) => {
+    private paginate = async (author: User, message: Message, embed: MessageEmbed, queue: Queue, info: pageInfo) => {
 
         await message.react(this.previous);
         await message.react(this.next);
@@ -102,11 +102,13 @@ default class implements CommandExecutor {
                 case this.previous: info.currentPage === 1 ? info.currentPage = info.pages.length : info.currentPage--; break;
             }
 
-            await this.setEmbed(message.author, embed, queue, info);
+            await this.setEmbed(author, embed, queue, info);
             message.edit(embed);
             reaction.users.remove(user);
 
         });
+
+        collector.on('end', (collected) => collected.first()?.message.reactions.removeAll());
 
     }
 
