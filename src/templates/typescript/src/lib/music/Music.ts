@@ -8,6 +8,8 @@ export interface Music {
     duration: number;
     paused: boolean;
     loop: boolean;
+    author: string,
+    authorUrl: string,
     requester: GuildMember;
 
 }
