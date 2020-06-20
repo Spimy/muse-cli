@@ -1,7 +1,9 @@
 import { client } from '../..';
-import { MessageEmbed, TextChannel, VoiceChannel, Guild } from 'discord.js';
+import { MessageEmbed, TextChannel, VoiceChannel, Guild, User } from 'discord.js';
 import { Music } from './Music';
 import { defaultQueue } from './DefaultQueue';
+import { Queue } from './Queue';
+
 import ytdl from 'discord-ytdl-core';
 
 interface QueueInfo {
@@ -109,4 +111,23 @@ export class MusicPlayer {
         dispatcher?.on('error', console.error);
 
     }
+
+    public durationBar = (queue: Queue) => {
+
+        const { current, connection } = queue;
+        const { duration } = current!;
+
+        const counter = 33;
+        const bar = "━".repeat(counter);
+        const indicator = "⚪";
+
+        const position = Math.floor(((connection!.dispatcher.streamTime / 1000) / duration) * counter);
+        const currentTime = client.$utils.formatSeconds(connection!.dispatcher.streamTime / 1000);
+        const timeString = `${currentTime} / ${client.$utils.formatSeconds(duration)}`;
+
+        const durationBar = client.$utils.replaceStrChar(bar, position, indicator);
+        return [durationBar, timeString];
+
+    }
+
 }
