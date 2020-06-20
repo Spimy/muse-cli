@@ -43,4 +43,12 @@ export class Utils {
         return new Date(seconds * 1000).toISOString().substr(11, 8);
     }
 
+    replaceStrChar = (str: string, index: number, replacement: string) => {
+        return str.substr(0, index) + replacement + str.substr(index + replacement.length);
+    }
+
+    truncateStr = (str: string, length: number) => {
+        return (str.length > length) ? str.substr(0, length - 1) + '...' : str;
+    }
+
 }
