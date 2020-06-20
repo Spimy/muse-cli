@@ -11,7 +11,7 @@ export default class MuseClient extends Client {
     private commands: Collection<string, CommandProps> = new Collection();
     private aliases: Collection<string, string> = new Collection();
     private utils: Utils = new Utils();
-    private youtube: YouTube = new YouTube(process.env.YOUTUBE_API_KEY!)
+    private youtube: YouTube = new YouTube(process.env.YOUTUBE_API_KEY!);
     private config: Config = muse;
 
     constructor(options?: ClientOptions) {
