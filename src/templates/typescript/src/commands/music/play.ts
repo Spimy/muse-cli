@@ -69,7 +69,7 @@ default class implements CommandExecutor {
 
                 results.forEach(async result => {
                     if (result.private) return;
-                    const video = await client.$youtube.getVideo(result);
+                    const video = await result.fetch();
                     const music = await this.setMusicInfo(video, member);
                     player.addToQueue({ music, textChannel, voiceChannel, playlist: true });
                 });
