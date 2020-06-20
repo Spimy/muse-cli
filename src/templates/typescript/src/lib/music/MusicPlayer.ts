@@ -1,6 +1,6 @@
+import { client } from '../..';
 import { MessageEmbed, TextChannel, VoiceChannel, Guild } from 'discord.js';
 import { Music } from './Music';
-import { Queue } from './Queue';
 import { defaultQueue } from './DefaultQueue';
 import ytdl from 'discord-ytdl-core';
 
@@ -50,7 +50,8 @@ export class MusicPlayer {
             this.embed.spliceFields(0, this.embed.fields.length);
         }
 
-        if (typeof queue.connection === 'undefined') {
+        if (!queue.playing) {
+            queue.playing = true;
             voiceChannel.join().then(connection => {
                 queue.connection = connection;
                 this.playMusic(textChannel.guild);
@@ -98,7 +99,7 @@ export class MusicPlayer {
             .setTitle("Now Playing:")
             .setDescription(`[${queue.current.title}](${queue.current.url})`)
             .setThumbnail(queue.current.thumbnail)
-            // .addField("Duration:", `${client.$utils.formatSeconds(queue.current.duration)}`, true)
+            .addField("Duration:", `${client.$utils.formatSeconds(queue.current.duration)}`, true)
             .addField("Requested By:", queue.current.requester.user.tag, true)
             .setTimestamp();
 
