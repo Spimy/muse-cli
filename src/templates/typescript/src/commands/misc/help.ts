@@ -66,7 +66,7 @@ default class implements CommandExecutor {
             `Permissions required: ${permissionsRequired ? `\`${command.info.permissions!.join(' | ')}\`` : '`None`'}`
         ].join('\n'));
 
-        embed.addField('Usage', `\`${prefix}${command.info.name}${command.info.usage !== '' ? ` ${command.info.usage}` : ''}\``);
+        embed.addField('Usage', `\`${prefix}${command.info.name}${typeof command.info.usage !== 'undefined' ? ` ${command.info.usage}` : ''}\``);
         embed.addField('Aliases', `${aliasesPresent ? command.info.aliases!.map(alias => `\`${alias}\``).join(', ') : '\`None\`'}`);
 
         message.channel.send(embed);
