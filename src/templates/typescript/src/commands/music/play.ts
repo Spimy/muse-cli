@@ -23,9 +23,10 @@ default class implements CommandExecutor {
         const music: Music = {
             title: video.title,
             url: video.url,
+            paused: false,
             loop: false,
             duration: (video.minutes * 60) + video.seconds,
-            thumbnail: video.thumbnails.standard?.url!,
+            thumbnail: video.thumbnails.maxres?.url || video.thumbnails.default?.url!,
             requester: member
         }
         return music;
@@ -58,13 +59,20 @@ default class implements CommandExecutor {
             }
 
             if (this.playlistRegex.test(args[0])) {
-                const results = await client.$youtube.getPlaylistItems(args[0], 0);
+                const msg = await message.channel.send('🔄 Processing playlist...');
+
+                const playlist = await client.$youtube.getPlaylist(args[0]);
+                const results = await playlist.fetchVideos(0);
                 if (results.length === 0) return false;
 
-                results.forEach(result => {
-                    const music = this.setMusicInfo(result, member);
+                results.forEach(async result => {
+                    if (result.private) return;
+                    const video = await client.$youtube.getVideo(result);
+                    const music = this.setMusicInfo(video, member);
                     player.addToQueue({ music, textChannel, voiceChannel, playlist: true });
                 });
+
+                msg.edit(`✅ Successfully added **${playlist.title}** to the queue`);
 
                 return true;
             }
