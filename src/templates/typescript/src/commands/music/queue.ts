@@ -38,6 +38,7 @@ default class implements CommandExecutor {
         const msg = await message.channel.send(embed);
         if (info.pages.length > 1) await this.paginate(message.author, msg, embed, queue, info);
         return true;
+
     }
 
     private setupPages = async (queue: Queue): Promise<pageInfo> => {
