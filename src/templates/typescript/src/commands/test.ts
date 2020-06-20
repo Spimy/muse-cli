@@ -1,6 +1,6 @@
 import { Message } from 'discord.js';
-import { Command } from '../../lib/commands/Command';
-import { CommandExecutor } from '../../lib/commands/CommandExecutor';
+import { Command } from '../lib/commands/Command';
+import { CommandExecutor } from '../lib/commands/CommandExecutor';
 
 @Command({
     name: 'test',
