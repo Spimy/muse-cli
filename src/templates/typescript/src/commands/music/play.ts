@@ -67,12 +67,12 @@ default class implements CommandExecutor {
                 const results = await playlist.fetchVideos(0);
                 if (results.length === 0) return false;
 
-                results.forEach(async result => {
-                    if (result.private) return;
-                    const video = await result.fetch();
+                for (let i = 0; i < results.length; i++) {
+                    if (results[i].private) continue;
+                    const video = await results[i].fetch();
                     const music = await this.setMusicInfo(video, member);
                     player.addToQueue({ music, textChannel, voiceChannel, playlist: true });
-                });
+                }
 
                 msg.edit(`✅ Successfully added **${playlist.title}** to the queue`);
 
