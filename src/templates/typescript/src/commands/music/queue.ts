@@ -1,10 +1,8 @@
-import { client } from '../../index';
-import { Command } from "../../lib/commands/Command";
-import { CommandExecutor } from '../../lib/commands/CommandExecutor';
-
-import { Message, MessageEmbed, User, MessageReaction } from 'discord.js';
 import { Queue } from '../../lib/music/Queue';
 import { Music } from '../../lib/music/Music';
+import { Command } from "../../lib/commands/Command";
+import { CommandExecutor } from '../../lib/commands/CommandExecutor';
+import { Message, MessageEmbed, User, MessageReaction } from 'discord.js';
 
 interface pageInfo {
     pages: Music[][];
@@ -27,7 +25,7 @@ default class implements CommandExecutor {
     private readonly next = '⏩';
     private readonly previous = '⏪';
 
-    execute = async (message: Message, args: string[]): Promise<boolean> => {
+    execute = async (message: Message): Promise<boolean> => {
 
         const { queue } = message.guild!;
         if (typeof queue.current === 'undefined') return false;
