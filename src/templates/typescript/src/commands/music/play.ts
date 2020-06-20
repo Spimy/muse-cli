@@ -1,11 +1,10 @@
 import { client } from '../../index';
+import { Music } from '../../lib/music/Music';
 import { Command } from "../../lib/commands/Command";
 import { CommandExecutor } from '../../lib/commands/CommandExecutor';
 
-import ytdl from 'discord-ytdl-core';
-import { Message, TextChannel, GuildMember } from 'discord.js';
-import { Music } from '../../lib/music/Music';
 import { Video } from 'popyt';
+import { Message, TextChannel, GuildMember } from 'discord.js';
 
 @Command({
     name: 'play',
@@ -19,7 +18,8 @@ default class implements CommandExecutor {
     private readonly videoRegex = /(?:youtube(?:-nocookie)?\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
     private readonly playlistRegex = /^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/;
 
-    private setMusicInfo = (video: Video, member: GuildMember) => {
+    private setMusicInfo = async (video: Video, member: GuildMember) => {
+        const channel = await client.$youtube.getChannel(video.channelId);
         const music: Music = {
             title: video.title,
             url: video.url,
@@ -27,7 +27,9 @@ default class implements CommandExecutor {
             loop: false,
             duration: (video.minutes * 60) + video.seconds,
             thumbnail: video.thumbnails.maxres?.url || video.thumbnails.default?.url!,
-            requester: member
+            author: channel.name,
+            authorUrl: channel.url,
+            requester: member,
         }
         return music;
     }
@@ -48,7 +50,7 @@ default class implements CommandExecutor {
                 try {
 
                     const result = await client.$youtube.getVideo(args[0]);
-                    const music = this.setMusicInfo(result, member);
+                    const music = await this.setMusicInfo(result, member);
                     player.addToQueue({ music, textChannel, voiceChannel, playlist: false });
 
                 } catch {
@@ -68,7 +70,7 @@ default class implements CommandExecutor {
                 results.forEach(async result => {
                     if (result.private) return;
                     const video = await client.$youtube.getVideo(result);
-                    const music = this.setMusicInfo(video, member);
+                    const music = await this.setMusicInfo(video, member);
                     player.addToQueue({ music, textChannel, voiceChannel, playlist: true });
                 });
 
@@ -84,7 +86,7 @@ default class implements CommandExecutor {
         const result = await client.$youtube.getVideo(args.join(' '));
         if (!result) return false;
 
-        const music = this.setMusicInfo(result, member);
+        const music = await this.setMusicInfo(result, member);
         player.addToQueue({ music, textChannel, voiceChannel, playlist: false });
 
         return true;
