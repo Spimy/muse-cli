@@ -15,7 +15,9 @@ interface pageInfo {
 @Command({
     name: 'queue',
     aliases: ['q', 'list'],
-    description: 'View music queue',
+    description:
+        'Excited about the next song? View a list of songs in the queue to be even more excited...' +
+        'or disappointed by someone\'s poor taste in music!',
     category: 'Music'
 })
 default class implements CommandExecutor {
