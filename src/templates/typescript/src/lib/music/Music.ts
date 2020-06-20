@@ -6,6 +6,7 @@ export interface Music {
     url: string;
     thumbnail: string;
     duration: number;
+    paused: boolean;
     loop: boolean;
     requester: GuildMember;
 
