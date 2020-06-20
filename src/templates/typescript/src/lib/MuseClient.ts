@@ -1,6 +1,6 @@
 import { Client, ClientOptions, Collection } from 'discord.js';
 import { CommandProps } from './commands/CommandProps';
-import { Utils } from './utils';
+import { Utils } from './Utils';
 import { Config } from './Config';
 import { YouTube } from 'popyt';
 
