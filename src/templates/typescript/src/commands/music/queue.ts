@@ -63,24 +63,23 @@ default class implements CommandExecutor {
 
         const title = queue.upcoming.length > 0 ? `Upcoming - Next ${queue.upcoming.length}` : "Currently Playing";
 
-        const descriptionArray: string[] = [
+        const description: string[] = [
             `Looping queue: ${String(queue.loop)[0].toUpperCase() + String(queue.loop).substring(1)}`
         ];
 
         info.currentListNum = (info.currentPage * this.itemsPerPage) - this.itemsPerPage;
 
         if (info.pages.length > 0) {
-            descriptionArray.push(`${info.pages[info.currentPage - 1].map((music, index) =>
+            description.push(`${info.pages[info.currentPage - 1].map((music, index) =>
                 `**[${info.currentListNum + (index + 1)}]:** [${music.title}](${music.url})`
             ).join('\n')}`);
         }
-        descriptionArray.push(`🎵 **Currently Playing:** [${queue.current?.title}](${queue.current?.url})`);
+        description.push(`🎵 **Currently Playing:** [${queue.current?.title}](${queue.current?.url})`);
 
-        const description = descriptionArray.join('\n\n');
         embed
             .setTitle(title)
             .setThumbnail(queue.current!.thumbnail)
-            .setDescription(description)
+            .setDescription(description.join('\n\n'))
             .setFooter(`Page ${info.currentPage} of ${info.pages.length === 0 ? 1 : info.pages.length} | Requested by ${author.tag}`)
             .setTimestamp();
 
