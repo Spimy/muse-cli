@@ -1,8 +1,8 @@
 import { client } from '../..';
-import { MessageEmbed, TextChannel, VoiceChannel, Guild, User } from 'discord.js';
 import { Music } from './Music';
-import { defaultQueue } from './DefaultQueue';
 import { Queue } from './Queue';
+import { defaultQueue } from './DefaultQueue';
+import { MessageEmbed, TextChannel, VoiceChannel, Guild, Message, StreamDispatcher } from 'discord.js';
 
 import ytdl from 'discord-ytdl-core';
 
@@ -13,8 +13,15 @@ interface QueueInfo {
     playlist: boolean;
 }
 
+interface NowPlayingInfo {
+    message: Message;
+    embed: MessageEmbed;
+    interval: NodeJS.Timeout;
+}
+
 export class MusicPlayer {
 
+    private nowPlayingInfo: NowPlayingInfo[] = [];
     private readonly embed = new MessageEmbed().setColor('RANDOM');
 
     public addToQueue({ music, textChannel, voiceChannel, playlist }: QueueInfo) {
@@ -85,6 +92,19 @@ export class MusicPlayer {
         });
 
         dispatcher?.on('finish', () => {
+            while (this.nowPlayingInfo.length > 0) {
+                const item = this.nowPlayingInfo.shift()!;
+
+                clearInterval(item.interval);
+                const [durationBar] = this.durationBar(queue, dispatcher);
+
+                item.embed.setTitle('Was Playing:');
+                item.embed.setDescription(`\`\`\`${durationBar} Ended\`\`\``);
+                item.embed.spliceFields(1, 1, { name: 'Remaining Time:', value: 'Ended', inline: true });
+
+                item.message.edit(item.embed);
+            }
+
             if (!queue.current?.loop) {
                 if (queue.loop) {
                     queue.upcoming.push(queue.current!);
@@ -111,22 +131,33 @@ export class MusicPlayer {
 
     }
 
-    public durationBar = (queue: Queue) => {
+    public durationBar = (queue: Queue, dispatcher?: StreamDispatcher) => {
 
         const { current, connection } = queue;
         const { duration } = current!;
+        const streamTime = dispatcher ?
+            dispatcher.streamTime + (dispatcher.streamTime - duration) :
+            connection!.dispatcher.streamTime;
 
         const counter = 33;
         const bar = '━'.repeat(counter);
         const indicator = '⚪';
 
-        const position = Math.floor(((connection!.dispatcher.streamTime / 1000) / duration) * counter);
-        const currentTime = client.$utils.formatSeconds(connection!.dispatcher.streamTime / 1000);
+        const position = Math.floor(((streamTime / 1000) / duration) * counter);
+        const currentTime = client.$utils.formatSeconds(streamTime / 1000);
         const timeString = `${currentTime} / ${client.$utils.formatSeconds(duration)}`;
 
         const durationBar = client.$utils.replaceStrChar(bar, position, indicator);
         return [durationBar, timeString];
 
+    }
+
+    /**
+     * Getter $durationMessages
+     * @return {NowPlayingInfo[]}
+     */
+    public get $nowPlayingInfo(): NowPlayingInfo[] {
+        return this.nowPlayingInfo;
     }
 
 }
