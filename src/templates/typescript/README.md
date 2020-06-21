@@ -38,9 +38,17 @@ installing FFmpeg.
 - Fork this repo
 - Clone your fork to your local machine
 - CD into the bot's root directory
-- Run `npm install`
-- Copy your [discord token](#getting-a-discord-bot-token) and set a command prefix in into [config.json](config.json)
-- Run `npm start` or `node index.js`
+- Run `npm install` or `yarn`
+- Copy your [discord token](#getting-a-discord-bot-token) and set a command prefix in into [muse.json](muse.json)
+- Run `npm build` or `yarn build` or `tsc -b`
+- Run `npm dev` or `yarn dev` and if you do, skip the next step
+- Run `npm start` or `yarn start` or `node dist/index.js`
+
+OR
+
+- Run `npm install -g muse-cli` or `yarn global add muse-cli`
+- Run `muse new project-name typescript [--git] [--skipInstall] [--packageManager=(npm/yarn)]`
+- Copy your [discord token](#getting-a-discord-bot-token) and set a command prefix in into [muse.json](muse.json)
 
 ## Getting a Discord Bot Token
 
@@ -73,7 +81,7 @@ Note: Do NOT share your bot token with anyone!
     You can make a video or a queue loop.
 
     If video is looping, it will never jump to the next video unless you turn if off or skip the song\
-    If queue is looping, the entire queue will never end. This is done by pushing the first video to the
+    If queue is looping, the entire queue will never end. This is done by pushing the current video to the
     end of the queue array when it finishes playing
 
     ![Loop command](assets/features/loop_command.png)
