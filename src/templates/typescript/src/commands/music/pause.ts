@@ -13,7 +13,9 @@ default class implements CommandExecutor {
 
         const { queue, queue: { current, connection }, player } = message.guild!;
 
-        if (typeof current === 'undefined' || message.member!.voice.channel !== queue.voiceChannel || current?.paused) return false;
+        if (typeof current === 'undefined') return false;
+        if (message.member!.voice.channel !== queue.voiceChannel) return false;
+        if (current.paused) return false;
 
         current.paused = true;
         connection?.dispatcher.pause();

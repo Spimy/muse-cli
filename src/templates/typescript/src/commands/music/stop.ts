@@ -15,7 +15,8 @@ default class implements CommandExecutor {
     execute = async (message: Message): Promise<boolean> => {
 
         const { queue } = message.guild!;
-        if (typeof queue.current === 'undefined' || message.member!.voice.channel !== queue.voiceChannel) return false;
+        if (typeof queue.current === 'undefined') return false;
+        if (message.member!.voice.channel !== queue.voiceChannel) return false;
 
         queue.current = undefined;
         queue.upcoming = [];
