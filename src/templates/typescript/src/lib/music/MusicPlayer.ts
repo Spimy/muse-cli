@@ -75,7 +75,7 @@ export class MusicPlayer {
         if (typeof queue.current === 'undefined') {
             queue.voiceChannel?.leave();
             queue.textChannel?.send('🎵 Music playback has ended');
-            return guild.queue = defaultQueue;
+            return guild.queue = { ...defaultQueue };
         }
 
         const stream = ytdl(queue.current?.url!, {
@@ -85,6 +85,8 @@ export class MusicPlayer {
             encoderArgs: ['-af', 'bass=g=10,dynaudnorm=f=200'],
             highWaterMark: 1 << 20
         });
+
+        stream.on('error', console.error);
 
         const dispatcher = queue.connection?.play(stream, {
             type: 'unknown',
@@ -111,7 +113,10 @@ export class MusicPlayer {
                 }
                 queue.current = queue.upcoming.shift();
             }
-            this.playMusic(guild);
+
+            setTimeout(() => {
+                this.playMusic(guild);
+            }, 1000);
         });
 
         dispatcher?.setVolumeLogarithmic(queue.volume / 100);
