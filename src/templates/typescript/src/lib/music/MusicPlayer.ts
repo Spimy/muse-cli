@@ -15,8 +15,7 @@ interface QueueInfo {
 
 export class MusicPlayer {
 
-    private readonly embed = new MessageEmbed()
-        .setColor('RANDOM');
+    private readonly embed = new MessageEmbed().setColor('RANDOM');
 
     public addToQueue({ music, textChannel, voiceChannel, playlist }: QueueInfo) {
 
@@ -41,11 +40,11 @@ export class MusicPlayer {
             const position = addedVideoIndex == 0 ? 'Up Next' : addedVideoIndex + 1;
 
             this.embed
-                .setTitle("Added Video to Queue")
+                .setTitle('Added Video to Queue')
                 .setDescription(`\`\`\`${music.title}\`\`\``)
                 .setThumbnail(music.thumbnail)
-                .addField("Position:", position, true)
-                .addField("Requested By:", music.requester.user.tag, true)
+                .addField('Position:', position, true)
+                .addField('Requested By:', music.requester.user.tag, true)
                 .setTimestamp();
 
             textChannel.send(this.embed);
@@ -73,9 +72,9 @@ export class MusicPlayer {
         }
 
         const stream = ytdl(queue.current?.url!, {
-            filter: "audioonly",
+            filter: 'audioonly',
             opusEncoded: false,
-            fmt: "mp3",
+            fmt: 'mp3',
             encoderArgs: ['-af', 'bass=g=10,dynaudnorm=f=200'],
             highWaterMark: 1 << 20
         });
@@ -98,11 +97,11 @@ export class MusicPlayer {
         dispatcher?.setVolumeLogarithmic(queue.volume / 100);
 
         this.embed
-            .setTitle("Now Playing:")
+            .setTitle('Now Playing:')
             .setDescription(`[${queue.current.title}](${queue.current.url})`)
             .setThumbnail(queue.current.thumbnail)
-            .addField("Duration:", `${client.$utils.formatSeconds(queue.current.duration)}`, true)
-            .addField("Requested By:", queue.current.requester.user.tag, true)
+            .addField('Duration:', `${client.$utils.formatSeconds(queue.current.duration)}`, true)
+            .addField('Requested By:', queue.current.requester.user.tag, true)
             .setTimestamp();
 
         queue.textChannel?.send(this.embed);
@@ -118,8 +117,8 @@ export class MusicPlayer {
         const { duration } = current!;
 
         const counter = 33;
-        const bar = "━".repeat(counter);
-        const indicator = "⚪";
+        const bar = '━'.repeat(counter);
+        const indicator = '⚪';
 
         const position = Math.floor(((connection!.dispatcher.streamTime / 1000) / duration) * counter);
         const currentTime = client.$utils.formatSeconds(connection!.dispatcher.streamTime / 1000);
