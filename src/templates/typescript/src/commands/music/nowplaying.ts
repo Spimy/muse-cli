@@ -34,17 +34,7 @@ default class implements CommandExecutor {
             msg.edit(embed);
         }, 5000);
 
-        queue.connection?.dispatcher.on('finish', () => {
-            clearInterval(interval);
-            const [durationBar] = player.durationBar(queue);
-
-            embed.setTitle('Was Playing:');
-            embed.setDescription(`\`\`\`${durationBar.substr(1) + durationBar.substr(0, 1)} Ended\`\`\``);
-            embed.spliceFields(1, 1, { name: 'Remaining Time:', value: 'Ended', inline: true });
-
-            msg.edit(embed);
-        });
-
+        player.$nowPlayingInfo.push({ embed, interval, message: msg });
         return true;
 
     }
