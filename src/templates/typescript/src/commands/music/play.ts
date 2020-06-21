@@ -18,22 +18,6 @@ default class implements CommandExecutor {
     private readonly videoRegex = /(?:youtube(?:-nocookie)?\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
     private readonly playlistRegex = /^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/;
 
-    private setMusicInfo = async (video: Video, member: GuildMember) => {
-        const channel = await client.$youtube.getChannel(video.channelId);
-        const music: Music = {
-            title: video.title,
-            url: video.url,
-            paused: false,
-            loop: false,
-            duration: (video.minutes * 60) + video.seconds,
-            thumbnail: video.thumbnails.maxres?.url || video.thumbnails.default?.url!,
-            author: channel.name,
-            authorUrl: channel.url,
-            requester: member,
-        }
-        return music;
-    }
-
     execute = async (message: Message, args: string[]): Promise<boolean> => {
 
         if (args.length === 0 || !message.member?.voice.channel) return false;
@@ -47,36 +31,40 @@ default class implements CommandExecutor {
 
             if (this.videoRegex.test(args[0])) {
 
-                try {
+                const status = await client.$youtube.getVideo(args[0])
+                    .then(async video => {
+                        const music = await this.setMusicInfo(video, member);
+                        player.addToQueue({ music, textChannel, voiceChannel, playlist: false });
+                        return true;
+                    })
+                    .catch(() => { return false; });
 
-                    const result = await client.$youtube.getVideo(args[0]);
-                    const music = await this.setMusicInfo(result, member);
-                    player.addToQueue({ music, textChannel, voiceChannel, playlist: false });
 
-                } catch {
-                    return false;
-                }
-
-                return true;
+                return status;
             }
 
             if (this.playlistRegex.test(args[0])) {
-                const msg = await message.channel.send('🔄 Processing playlist...');
 
-                const playlist = await client.$youtube.getPlaylist(args[0]);
-                const results = await playlist.fetchVideos(0);
-                if (results.length === 0) return false;
+                const status = await client.$youtube.getPlaylist(args[0])
+                    .then(async playlist => {
+                        const msg = await message.channel.send('🔄 Processing playlist...');
 
-                for (let i = 0; i < results.length; i++) {
-                    if (results[i].private) continue;
-                    const video = await results[i].fetch();
-                    const music = await this.setMusicInfo(video, member);
-                    player.addToQueue({ music, textChannel, voiceChannel, playlist: true });
-                }
+                        const results = await playlist.fetchVideos(0);
+                        if (results.length === 0) return false;
 
-                msg.edit(`✅ Successfully added **${playlist.title}** to the queue`);
+                        for (let i = 0; i < results.length; i++) {
+                            if (results[i].private) continue;
+                            const video = await results[i].fetch();
+                            const music = await this.setMusicInfo(video, member);
+                            player.addToQueue({ music, textChannel, voiceChannel, playlist: true });
+                        }
 
-                return true;
+                        msg.edit(`✅ Successfully added **${playlist.title}** to the queue`);
+                        return true;
+                    })
+                    .catch(() => { return false; });
+
+                return status;
             }
 
             return false;
@@ -91,6 +79,22 @@ default class implements CommandExecutor {
 
         return true;
 
+    }
+
+    private setMusicInfo = async (video: Video, member: GuildMember) => {
+        const channel = await client.$youtube.getChannel(video.channelId);
+        const music: Music = {
+            title: video.title,
+            url: video.url,
+            paused: false,
+            loop: false,
+            duration: (video.minutes * 60) + video.seconds,
+            thumbnail: video.thumbnails.maxres?.url || video.thumbnails.default?.url!,
+            author: channel.name,
+            authorUrl: channel.url,
+            requester: member,
+        }
+        return music;
     }
 
 }
