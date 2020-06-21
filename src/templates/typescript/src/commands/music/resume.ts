@@ -12,8 +12,7 @@ default class implements CommandExecutor {
     execute = async (message: Message): Promise<boolean> => {
 
         const { queue, queue: { current, connection }, player } = message.guild!;
-
-        if (typeof current === 'undefined' || !current?.paused) return false;
+        if (typeof current === 'undefined' || message.member!.voice.channel !== queue.voiceChannel || !current?.paused) return false;
 
         current.paused = false;
         connection?.dispatcher.resume();

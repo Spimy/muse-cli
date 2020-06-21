@@ -16,7 +16,7 @@ default class implements CommandExecutor {
     execute = async (message: Message): Promise<boolean> => {
 
         const { queue, player } = message.guild!;
-        if (typeof queue.current === 'undefined') return false;
+        if (typeof queue.current === 'undefined' || message.member!.voice.channel !== queue.voiceChannel) return false;
 
         const embed = new MessageEmbed()
             .setColor('RANDOM')
