@@ -22,7 +22,7 @@ interface NowPlayingInfo {
 export class MusicPlayer {
 
     private nowPlayingInfo: NowPlayingInfo[] = [];
-    private readonly embed = new MessageEmbed().setColor('RANDOM');
+    private readonly embed = new MessageEmbed();
 
     public addToQueue({ music, textChannel, voiceChannel, playlist }: QueueInfo) {
 
@@ -47,6 +47,7 @@ export class MusicPlayer {
             const position = addedVideoIndex == 0 ? 'Up Next' : addedVideoIndex + 1;
 
             this.embed
+                .setColor('RANDOM')
                 .setTitle('Added Video to Queue')
                 .setDescription(`\`\`\`${music.title}\`\`\``)
                 .setThumbnail(music.thumbnail)
@@ -121,6 +122,7 @@ export class MusicPlayer {
         dispatcher?.setVolumeLogarithmic(queue.volume / 100);
 
         this.embed
+            .setColor('RANDOM')
             .setTitle('Now Playing:')
             .setDescription(`[${queue.current.title}](${queue.current.url})`)
             .setThumbnail(queue.current.thumbnail)
