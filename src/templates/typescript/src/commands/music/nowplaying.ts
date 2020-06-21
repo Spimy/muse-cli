@@ -16,7 +16,6 @@ default class implements CommandExecutor {
     execute = async (message: Message): Promise<boolean> => {
 
         const { queue, player } = message.guild!;
-
         if (typeof queue.current === 'undefined') return false;
 
         const embed = new MessageEmbed()
