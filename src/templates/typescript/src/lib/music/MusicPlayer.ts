@@ -84,13 +84,13 @@ export class MusicPlayer {
             opusEncoded: false,
             fmt: 'mp3',
             encoderArgs: ['-af', 'bass=g=10,dynaudnorm=f=200'],
-            highWaterMark: 1 << 20
+            highWaterMark: 1 << 25
         });
         stream.on('error', console.error);
 
         const dispatcher = queue.connection?.play(stream, {
             type: 'unknown',
-            highWaterMark: 1024 * 1024 * 10
+            highWaterMark: 1
         });
 
         dispatcher?.on('finish', () => {
