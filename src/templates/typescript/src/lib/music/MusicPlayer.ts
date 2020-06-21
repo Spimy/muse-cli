@@ -85,7 +85,6 @@ export class MusicPlayer {
             encoderArgs: ['-af', 'bass=g=10,dynaudnorm=f=200'],
             highWaterMark: 1 << 20
         });
-
         stream.on('error', console.error);
 
         const dispatcher = queue.connection?.play(stream, {
