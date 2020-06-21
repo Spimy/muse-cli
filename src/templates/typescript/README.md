@@ -99,11 +99,6 @@ Note: Do NOT share your bot token with anyone!
 
 ## Command File Template
 
-Make sure you follow the `help` object's syntax! It is very important for the `help` command to detect
-the information of your command!
-
-The way I did it in my code:
-
 ```js
 @Command({
     name: "", // The name of the command
