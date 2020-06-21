@@ -118,8 +118,9 @@ Note: Do NOT share your bot token with anyone!
 })
 default class implements CommandExecutor {
 
-    execute = async (message: Message, args: string[]) => {
+    execute = async (message: Message, args: string[]): Promise<boolean> => {
         // Command code in here
+        return true;
     }
 
 }
