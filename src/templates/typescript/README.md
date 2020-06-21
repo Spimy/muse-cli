@@ -109,11 +109,11 @@ Note: Do NOT share your bot token with anyone!
 
 ```js
 @Command({
-    name: "", // The name of the command
+    name: '', // The name of the command
     aliases: [], // Add aliases inside the array (Optional)
-    category: "", // Specify which category this command belongs to (Optional)
-    usage: "", // Specify the arguments taken by the command (Optional)
-    description: "", // A short description about your command (Optional)
+    category: '', // Specify which category this command belongs to (Optional)
+    usage: '', // Specify the arguments taken by the command (Optional)
+    description: '', // A short description about your command (Optional)
     permissions: [] // Add permissions required to run the command (Optional)
 })
 default class implements CommandExecutor {
