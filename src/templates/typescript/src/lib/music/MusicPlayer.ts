@@ -98,7 +98,7 @@ export class MusicPlayer {
                 const item = this.nowPlayingInfo.shift()!;
 
                 clearInterval(item.interval);
-                const [durationBar] = this.durationBar(queue, dispatcher);
+                const [durationBar] = this.durationBar(queue, true);
 
                 item.embed.setTitle('Was Playing:');
                 item.embed.setDescription(`\`\`\`${durationBar} Ended\`\`\``);
@@ -137,21 +137,19 @@ export class MusicPlayer {
 
     }
 
-    public durationBar = (queue: Queue, dispatcher?: StreamDispatcher) => {
+    public durationBar = (queue: Queue, fromNP: boolean) => {
 
         const { current, connection } = queue;
         const { duration } = current!;
-        const streamTime = dispatcher ?
-            dispatcher.streamTime + (dispatcher.streamTime - duration) :
-            connection!.dispatcher.streamTime;
 
         const counter = 33;
         const bar = '━'.repeat(counter);
         const indicator = '⚪';
 
-        const position = Math.floor(((streamTime / 1000) / duration) * counter);
-        const currentTime = client.$utils.formatSeconds(streamTime / 1000);
-        const timeString = `${currentTime} / ${client.$utils.formatSeconds(duration)}`;
+        const streamTime = connection?.dispatcher?.streamTime;
+        const currentTime = fromNP ? '' : client.$utils.formatSeconds(streamTime! / 1000);
+        const timeString = fromNP ? '' : `${currentTime} / ${client.$utils.formatSeconds(duration)}`;
+        const position = fromNP ? duration * counter : Math.floor(((streamTime! / 1000) / duration) * counter);
 
         const durationBar = client.$utils.replaceStrChar(bar, position, indicator);
         return [durationBar, timeString];
