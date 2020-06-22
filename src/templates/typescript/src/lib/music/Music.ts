@@ -10,6 +10,7 @@ export interface Music {
     loop: boolean;
     author: string,
     authorUrl: string,
+    votes: GuildMember[];
     requester: GuildMember;
 
 }
