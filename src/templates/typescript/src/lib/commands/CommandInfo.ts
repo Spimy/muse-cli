@@ -6,5 +6,6 @@ export interface CommandInfo {
     aliases?: string[];
     usage?: string;
     category?: string;
+    overrideDefaultPermCheck?: boolean;
     permissions?: PermissionResolvable[];
 }
