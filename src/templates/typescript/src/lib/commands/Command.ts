@@ -5,6 +5,8 @@ import { CommandExecutor } from './CommandExecutor';
 export function Command(info: CommandInfo) {
 
     return function (target: { new(): CommandExecutor }) {
+
+        target.prototype.info = { ...info };
         client.$commands.set(info.name, { info, executor: new target() });
 
         info.aliases?.forEach(alias => {
