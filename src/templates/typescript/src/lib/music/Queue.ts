@@ -13,4 +13,6 @@ export interface Queue {
     textChannel?: TextChannel;
     voiceChannel?: VoiceChannel;
 
+    userCountskip: boolean;
+
 }
