@@ -18,7 +18,6 @@ default class implements CommandExecutor {
         if (typeof queue.current === 'undefined') return false;
         if (message.member!.voice.channel !== queue.voiceChannel) return false;
 
-        queue.current = undefined;
         queue.upcoming = [];
         queue.connection?.dispatcher.emit('finish');
         return true;
