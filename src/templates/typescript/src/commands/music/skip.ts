@@ -34,19 +34,17 @@ default class implements CommandExecutor {
 
         if (!hasPerm && typeof hasPerm !== 'undefined') {
 
-            const { votes } = queue.current;
-
-            if (votes.includes(message.member!)) {
+            if (current.votes.includes(message.member!)) {
                 message.channel.send(`⚠️ ${message.author}, you have already voted!`);
                 return true;
             }
 
-            votes.push(message.member!)
+            current.votes.push(message.member!)
             const skipCount = !queue.userCountskip ? this.skipCount : voiceChannel.members.size - 1;
 
-            message.channel.send(`⏩ ${message.author}, you have voted to skip! **${votes.length}/${skipCount}** votes`);
+            message.channel.send(`⏩ ${message.author}, you have voted to skip! **${current.votes.length}/${skipCount}** votes`);
 
-            if (queue.current.votes.length >= skipCount) this.skipMusic(current, connection!);
+            if (current.votes.length >= skipCount) this.skipMusic(current, connection!);
             return true;
 
         }
