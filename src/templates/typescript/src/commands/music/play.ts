@@ -92,6 +92,7 @@ default class implements CommandExecutor {
             thumbnail: video.thumbnails.maxres?.url || video.thumbnails.default?.url!,
             author: channel.name,
             authorUrl: channel.url,
+            votes: [],
             requester: member,
         }
         return music;
