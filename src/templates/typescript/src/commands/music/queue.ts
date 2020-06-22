@@ -2,13 +2,7 @@ import { Queue } from '../../lib/music/Queue';
 import { Music } from '../../lib/music/Music';
 import { Command } from "../../lib/commands/Command";
 import { CommandExecutor } from '../../lib/commands/CommandExecutor';
-import { Message, MessageEmbed, User, MessageReaction } from 'discord.js';
-
-interface pageInfo {
-    pages: Music[][];
-    currentPage: number;
-    currentListNum: number;
-}
+import { Message, MessageEmbed, User, MessageReaction, Guild, ReactionCollector } from 'discord.js';
 
 @Command({
     name: 'queue',
@@ -31,18 +25,18 @@ default class implements CommandExecutor {
         if (typeof queue.current === 'undefined') return false;
         if (message.member!.voice.channel !== queue.voiceChannel) return false;
 
-        const info = await this.setupPages(queue);
+        const currentPage = 1;
 
         const embed = new MessageEmbed().setColor('RANDOM');
-        await this.setEmbed(message.author, embed, queue, info);
+        await this.setEmbed(message.author, embed, message.guild!, currentPage);
 
         const msg = await message.channel.send(embed);
-        if (info.pages.length > 1) await this.paginate(message.author, msg, embed, queue, info);
+        await this.paginate(message.author, msg, embed, currentPage);
         return true;
 
     }
 
-    private setupPages = async (queue: Queue): Promise<pageInfo> => {
+    private setupPages = async (queue: Queue): Promise<Music[][]> => {
 
         const upcoming = [...queue.upcoming];
         const pages: Music[][] = [];
@@ -51,14 +45,14 @@ default class implements CommandExecutor {
             pages.push(upcoming.splice(0, this.itemsPerPage));
         }
 
-        const currentPage = 1;
-        const currentListNum = (currentPage * this.itemsPerPage) - this.itemsPerPage;
-
-        return { pages, currentPage, currentListNum };
+        return pages;
 
     }
 
-    private setEmbed = async (author: User, embed: MessageEmbed, queue: Queue, info: pageInfo) => {
+    private setEmbed = async (author: User, embed: MessageEmbed, guild: Guild, currentPage: number, pages?: Music[][]) => {
+
+        const { queue } = guild;
+        pages = pages ? pages : await this.setupPages(queue);
 
         const title = queue.upcoming.length > 0 ? `Upcoming - Next ${queue.upcoming.length}` : "Currently Playing";
 
@@ -66,11 +60,11 @@ default class implements CommandExecutor {
             `Looping queue: ${String(queue.loop)[0].toUpperCase() + String(queue.loop).substring(1)}`
         ];
 
-        info.currentListNum = (info.currentPage * this.itemsPerPage) - this.itemsPerPage;
+        const currentListNum = (currentPage * this.itemsPerPage) - this.itemsPerPage;
 
-        if (info.pages.length > 0) {
-            description.push(`${info.pages[info.currentPage - 1].map((music, index) =>
-                `**[${info.currentListNum + (index + 1)}]:** [${music.title}](${music.url})`
+        if (pages.length > 0) {
+            description.push(`${pages[currentPage - 1].map((music, index) =>
+                `**[${currentListNum + (index + 1)}]:** [${music.title}](${music.url})`
             ).join('\n')}`);
         }
         description.push(`🎵 **Currently Playing:** [${queue.current?.title}](${queue.current?.url})`);
@@ -79,12 +73,15 @@ default class implements CommandExecutor {
             .setTitle(title)
             .setThumbnail(queue.current!.thumbnail)
             .setDescription(description.join('\n\n'))
-            .setFooter(`Page ${info.currentPage} of ${info.pages.length === 0 ? 1 : info.pages.length} | Requested by ${author.tag}`)
+            .setFooter(`Page ${currentPage} of ${pages.length === 0 ? 1 : pages.length} | Requested by ${author.tag}`)
             .setTimestamp();
 
     }
 
-    private paginate = async (author: User, message: Message, embed: MessageEmbed, queue: Queue, info: pageInfo) => {
+    private paginate = async (author: User, message: Message, embed: MessageEmbed, currentPage: number) => {
+
+        let pages = await this.setupPages(message.guild!.queue);
+        if (pages.length === 1) return;
 
         await message.react(this.previous);
         await message.react(this.next);
@@ -96,20 +93,27 @@ default class implements CommandExecutor {
 
         collector.on('collect', async (reaction: MessageReaction, user: User) => {
 
-            const action = reaction.emoji.name;
+            pages = await this.setupPages(message.guild!.queue);
 
-            switch (action) {
-                case this.next: info.currentPage === info.pages.length ? info.currentPage = 1 : info.currentPage++; break;
-                case this.previous: info.currentPage === 1 ? info.currentPage = info.pages.length : info.currentPage--; break;
+            if (pages.length === 1) {
+                currentPage = 1;
+                await this.setEmbed(author, embed, message.guild!, currentPage, pages);
+                message.edit(embed);
             }
 
-            await this.setEmbed(author, embed, queue, info);
+            const action = reaction.emoji.name;
+            switch (action) {
+                case this.next: currentPage === pages.length ? currentPage = 1 : currentPage++; break;
+                case this.previous: currentPage === 1 ? currentPage = pages.length : currentPage--; break;
+            }
+
+            await this.setEmbed(author, embed, message.guild!, currentPage, pages);
             message.edit(embed);
             reaction.users.remove(user);
 
         });
 
-        collector.on('end', (collected) => collected.first()?.message.reactions.removeAll());
+        collector.on('end', () => message.reactions.removeAll());
 
     }
 
