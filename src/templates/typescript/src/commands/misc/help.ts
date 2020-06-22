@@ -1,12 +1,11 @@
 import { Message, MessageEmbed } from 'discord.js';
 import { client } from '../../index';
 import { Command } from '../../lib/commands/Command';
+import { CommandInfo } from '../../lib/commands/CommandInfo';
 import { CommandExecutor } from '../../lib/commands/CommandExecutor';
 
-const COMMAND_NAME = client.$config.helpCommand;
-
 @Command({
-    name: COMMAND_NAME,
+    name: 'help',
     usage: '[command:string]',
     description: 'Need some help with commands because they are too complicated? Look no further! I am here to your aid!',
     category: 'Miscellaneous'
@@ -15,8 +14,10 @@ default class implements CommandExecutor {
 
     execute = async (message: Message, args: string[]): Promise<boolean> => {
 
+        // @ts-ignore
+        const help = this.info as CommandInfo;
+
         const prefix = client.$config.prefix;
-        const help = client.$commands.get(COMMAND_NAME);
         const embed = new MessageEmbed()
             .setColor('RANDOM')
             .setThumbnail(client.user!.avatarURL()!)
@@ -31,7 +32,7 @@ default class implements CommandExecutor {
             embed.setDescription([
                 `**Prefix:** \`${prefix}\``,
                 `<> : Required | [] : Optional`,
-                `Use \`${prefix}${help?.info.name} ${help?.info.usage}\` to view command help with more detail.`
+                `Use \`${prefix}${help.name} ${help.usage}\` to view command help with more detail.`
             ].join('\n'));
 
             let categorisedCommands;
