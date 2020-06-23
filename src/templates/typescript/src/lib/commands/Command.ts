@@ -6,6 +6,8 @@ export function Command(info: CommandInfo) {
 
     return function (target: { new(): CommandExecutor }) {
 
+        info = { ...info, name: info.name.toLowerCase() }
+
         target.prototype.info = { ...info };
         client.$commands.set(info.name, { info, executor: new target() });
 
