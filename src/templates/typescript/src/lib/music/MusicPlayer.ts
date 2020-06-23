@@ -2,7 +2,8 @@ import { client } from '../..';
 import { Music } from './Music';
 import { Queue } from './Queue';
 import { defaultQueue } from './DefaultQueue';
-import { MessageEmbed, TextChannel, VoiceChannel, Guild, Message, StreamDispatcher } from 'discord.js';
+import { Video } from 'popyt';
+import { MessageEmbed, TextChannel, VoiceChannel, Guild, Message, GuildMember } from 'discord.js';
 
 import ytdl from 'discord-ytdl-core';
 
@@ -23,6 +24,23 @@ export class MusicPlayer {
 
     private nowPlayingInfo: NowPlayingInfo[] = [];
     private readonly embed = new MessageEmbed();
+
+    setMusicInfo = async (video: Video, member: GuildMember) => {
+        const channel = await client.$youtube.getChannel(video.channelId);
+        const music: Music = {
+            title: video.title,
+            url: video.url,
+            paused: false,
+            loop: false,
+            duration: (video.minutes * 60) + video.seconds,
+            thumbnail: video.thumbnails.maxres?.url || video.thumbnails.default?.url!,
+            author: channel.name,
+            authorUrl: channel.url,
+            votes: [],
+            requester: member,
+        }
+        return music;
+    }
 
     public addToQueue({ music, textChannel, voiceChannel, playlist }: QueueInfo) {
 
