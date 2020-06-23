@@ -33,7 +33,7 @@ default class implements CommandExecutor {
 
                 const status = await client.$youtube.getVideo(args[0])
                     .then(async video => {
-                        const music = await this.setMusicInfo(video, member);
+                        const music = await player.setMusicInfo(video, member);
                         player.addToQueue({ music, textChannel, voiceChannel, playlist: false });
                         return true;
                     })
@@ -54,8 +54,7 @@ default class implements CommandExecutor {
 
                         for (let i = 0; i < results.length; i++) {
                             if (results[i].private) continue;
-                            const video = await results[i].fetch();
-                            const music = await this.setMusicInfo(video, member);
+                            const music = await player.setMusicInfo(await results[i].fetch(), member);
                             player.addToQueue({ music, textChannel, voiceChannel, playlist: true });
                         }
 
@@ -74,28 +73,11 @@ default class implements CommandExecutor {
         const result = await client.$youtube.getVideo(args.join(' '));
         if (!result) return false;
 
-        const music = await this.setMusicInfo(result, member);
+        const music = await player.setMusicInfo(result, member);
         player.addToQueue({ music, textChannel, voiceChannel, playlist: false });
 
         return true;
 
-    }
-
-    private setMusicInfo = async (video: Video, member: GuildMember) => {
-        const channel = await client.$youtube.getChannel(video.channelId);
-        const music: Music = {
-            title: video.title,
-            url: video.url,
-            paused: false,
-            loop: false,
-            duration: (video.minutes * 60) + video.seconds,
-            thumbnail: video.thumbnails.maxres?.url || video.thumbnails.default?.url!,
-            author: channel.name,
-            authorUrl: channel.url,
-            votes: [],
-            requester: member,
-        }
-        return music;
     }
 
 }
