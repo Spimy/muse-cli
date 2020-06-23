@@ -4,7 +4,7 @@ import { Event } from '../lib/events/Event';
 import { EventListener } from '../lib/events/EventListener';
 
 @Event('message')
-class MessageEvent implements EventListener {
+default class implements EventListener {
 
     listen = async (message: Message) => {
 
