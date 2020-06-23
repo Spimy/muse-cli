@@ -114,13 +114,27 @@ Note: Do NOT share your bot token with anyone!
     category: '', // Specify which category this command belongs to (Optional)
     usage: '', // Specify the arguments taken by the command (Optional)
     description: '', // A short description about your command (Optional)
-    permissions: [] // Add permissions required to run the command (Optional)
+    permissions: [], // Add permissions required to run the command (Optional)
+    overrideDefaultPermCheck: false // Whether to ignore default permission check (Optional)
 })
 default class implements CommandExecutor {
 
     execute = async (message: Message, args: string[]): Promise<boolean> => {
         // Command code in here
         return true;
+    }
+
+}
+```
+
+## Event File Template
+
+```js
+@Event('') // The name of the event
+class MessageEvent implements EventListener {
+
+    listen = async (message: Message) => {
+        // Event code in here
     }
 
 }
