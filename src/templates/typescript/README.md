@@ -131,7 +131,7 @@ default class implements CommandExecutor {
 
 ```js
 @Event('') // The name of the event
-class MessageEvent implements EventListener {
+default class implements EventListener {
 
     listen = async (/* Pass in appropriate arguments for the event name passed in the decorator */) => {
         // Event code in here
