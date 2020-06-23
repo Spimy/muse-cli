@@ -39,16 +39,18 @@ installing FFmpeg.
 - Clone your fork to your local machine
 - CD into the bot's root directory
 - Run `npm install` or `yarn`
-- Copy your [discord token](#getting-a-discord-bot-token) and set a command prefix in into [muse.json](muse.json)
-- Run `npm build` or `yarn build` or `tsc -b`
-- Run `npm dev` or `yarn dev` and if you do, skip the next step
-- Run `npm start` or `yarn start` or `node dist/index.js`
 
 OR
 
 - Run `npm install -g muse-cli` or `yarn global add muse-cli`
 - Run `muse new project-name typescript [--git] [--skipInstall] [--packageManager=(npm/yarn)]`
-- Copy your [discord token](#getting-a-discord-bot-token) and set a command prefix in [muse.json](muse.json)
+
+THEN FOR EITHER
+
+- Copy your [discord token](#getting-a-discord-bot-token) and set a command prefix in into [muse.json](muse.json)
+- Run `npm build` or `yarn build` or `tsc -b`
+- Run `npm dev` or `yarn dev` and if you do, skip the next step
+- Run `npm start` or `yarn start` or `node dist/index.js`
 
 ## Getting a Discord Bot Token
 
