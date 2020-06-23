@@ -4,6 +4,7 @@ import { Utils } from './Utils';
 import { Config } from './Config';
 import { YouTube } from 'popyt';
 
+import path from 'path';
 const { muse } = require('../../muse.json');
 
 export default class MuseClient extends Client {
@@ -20,8 +21,8 @@ export default class MuseClient extends Client {
 
     async login(token: string) {
         super.login(token);
-        await this.utils.loadModules('../commands');
-        await this.utils.loadModules('../events');
+        await this.utils.loadModules(`..${path.sep}commands`);
+        await this.utils.loadModules(`..${path.sep}events`);
         return token;
     }
 
