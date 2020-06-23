@@ -48,7 +48,7 @@ OR
 
 - Run `npm install -g muse-cli` or `yarn global add muse-cli`
 - Run `muse new project-name typescript [--git] [--skipInstall] [--packageManager=(npm/yarn)]`
-- Copy your [discord token](#getting-a-discord-bot-token) and set a command prefix in into [muse.json](muse.json)
+- Copy your [discord token](#getting-a-discord-bot-token) and set a command prefix in [muse.json](muse.json)
 
 ## Getting a Discord Bot Token
 
