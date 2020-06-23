@@ -8,7 +8,7 @@ import { Message, MessageEmbed } from 'discord.js';
 @Command({
     name: 'nowplaying',
     aliases: ['np', 'now_playing', 'current', 'currentlyplaying', 'currently_playing'],
-    description: 'View the currently playing song with a fancy duration bar',
+    description: 'View the currently playing music with a fancy duration bar',
     category: 'Music'
 })
 default class implements CommandExecutor {
@@ -46,7 +46,10 @@ default class implements CommandExecutor {
 
         const durationBar = player.durationBar(queue);
         const timeRemaining = client.$utils.formatSeconds(duration - (connection!.dispatcher.streamTime / 1000));
-        const upcomingVid = upcoming[0] ? `[${client.$utils.truncateStr(upcoming[0].title, 20)}](${upcoming[0].url})` : 'None';
+
+        let upcomingVid;
+        upcomingVid = upcoming[0] ? `[${client.$utils.truncateStr(upcoming[0].title, 20)}](${upcoming[0].url})` : 'None';
+        upcomingVid = current!.loop ? `[${client.$utils.truncateStr(current!.title, 20)}](${current!.url})` : upcomingVid;
 
         embed.setDescription(`[${title}](${url})\n${durationBar}`);
         embed.spliceFields(0, 6,

@@ -8,7 +8,7 @@ import { Message, MessageEmbed, User, MessageReaction, Guild, ReactionCollector 
     name: 'queue',
     aliases: ['q', 'list'],
     description:
-        'Excited about the next song? View a list of songs in the queue to be even more excited...' +
+        'Excited about the next music? View a list of songs in the queue to be even more excited...' +
         'or disappointed by someone\'s poor taste in music!',
     category: 'Music'
 })

@@ -7,7 +7,7 @@ import { CommandExecutor } from '../../lib/commands/CommandExecutor';
     aliases: ['clearqueue'],
     category: 'Music',
     usage: '[index:number]',
-    description: 'Accidentally added a playlist or song? Clear the queue completely or remove a song at a specific index!'
+    description: 'Accidentally added a playlist or music? Clear the queue completely or remove a music at a specific index!'
 })
 default class implements CommandExecutor {
 
