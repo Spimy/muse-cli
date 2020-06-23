@@ -50,11 +50,11 @@ default class implements CommandExecutor {
         }
 
         if (args[0]) {
-            const bool = args[0] === "true" ? true : (args[0] === "false" ? false : args[0]);
-            if (typeof bool != "boolean") return false;
+            const bool = args[0] === 'true' ? true : (args[0] === 'false' ? false : args[0]);
+            if (typeof bool != 'boolean') return false;
 
             queue.userCountskip = bool;
-            message.reply(`⏩ Skip count will now be ${bool ? "" : "not "}equivalent to the number of users in the voice channel!`);
+            message.reply(`⏩ Skip count will now be ${bool ? '' : 'not '}equivalent to the number of users in the voice channel!`);
             return true;
         }
 

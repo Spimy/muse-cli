@@ -31,7 +31,7 @@ default class implements CommandExecutor {
         }
 
         queue.upcoming = [];
-        message.channel.send("🗑️ The queue has been cleared! Add more songs or the playback will end after the current song!");
+        message.channel.send('🗑️ The queue has been cleared! Add more songs or the playback will end after the current song!');
         return true;
 
     }

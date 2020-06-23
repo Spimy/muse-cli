@@ -22,8 +22,8 @@ default class implements CommandExecutor {
         const durationBar = player.durationBar(queue);
 
         const embed = new MessageEmbed()
-            .setColor("RANDOM")
-            .setTitle("Successfully Resumed")
+            .setColor('RANDOM')
+            .setTitle('Successfully Resumed')
             .setThumbnail(current.thumbnail)
             .setDescription(`▶️ [${current.title}](${current.url}) has been resumed\n${durationBar}`)
             .setFooter(`Requested by ${message.author.tag}`)

@@ -1,6 +1,6 @@
 import { Queue } from '../../lib/music/Queue';
 import { Pages } from '../../types';
-import { Command } from "../../lib/commands/Command";
+import { Command } from '../../lib/commands/Command';
 import { CommandExecutor } from '../../lib/commands/CommandExecutor';
 import { Message, MessageEmbed, User, MessageReaction, Guild, ReactionCollector } from 'discord.js';
 
@@ -54,7 +54,7 @@ default class implements CommandExecutor {
         const { queue, queue: { current, upcoming, loop } } = guild;
         pages = pages ? pages : await this.setupPages(queue);
 
-        const title = upcoming.length > 0 ? `Upcoming - Next ${upcoming.length}` : "Currently Playing";
+        const title = upcoming.length > 0 ? `Upcoming - Next ${upcoming.length}` : 'Currently Playing';
 
         const description: string[] = [
             `Looping queue: ${String(loop)[0].toUpperCase() + String(loop).substring(1)}`
