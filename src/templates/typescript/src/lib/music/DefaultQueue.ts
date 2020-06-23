@@ -8,5 +8,6 @@ export const defaultQueue: Queue = {
     playing: false,
     connection: undefined,
     textChannel: undefined,
-    voiceChannel: undefined
+    voiceChannel: undefined,
+    userCountskip: false
 }
