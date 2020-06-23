@@ -80,9 +80,6 @@ default class implements CommandExecutor {
 
     private paginate = async (author: User, message: Message, embed: MessageEmbed, currentPage: number) => {
 
-        let pages = await this.setupPages(message.guild!.queue);
-        if (pages.length === 1) return;
-
         await message.react(this.previous);
         await message.react(this.next);
 
@@ -93,9 +90,9 @@ default class implements CommandExecutor {
 
         collector.on('collect', async (reaction: MessageReaction, user: User) => {
 
-            pages = await this.setupPages(message.guild!.queue);
+            const pages = await this.setupPages(message.guild!.queue);
 
-            if (pages.length === 1) {
+            if (pages.length < 2) {
                 currentPage = 1;
                 await this.setEmbed(author, embed, message.guild!, currentPage, pages);
                 message.edit(embed);
