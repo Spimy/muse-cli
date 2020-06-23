@@ -98,10 +98,10 @@ export class MusicPlayer {
                 const item = this.nowPlayingInfo.shift()!;
 
                 clearInterval(item.interval);
-                const [durationBar] = this.durationBar(queue, true);
+                const durationBar = this.durationBar(queue, true);
 
                 item.embed.setTitle('Was Playing:');
-                item.embed.setDescription(`\`\`\`${durationBar} Ended\`\`\``);
+                item.embed.setDescription(durationBar);
                 item.embed.spliceFields(1, 1, { name: 'Remaining Time:', value: 'Ended', inline: true });
 
                 item.message.edit(item.embed);
@@ -137,7 +137,7 @@ export class MusicPlayer {
 
     }
 
-    public durationBar = (queue: Queue, fromNP: boolean) => {
+    public durationBar = (queue: Queue, ended?: boolean) => {
 
         const { current, connection } = queue;
         const { duration } = current!;
@@ -147,12 +147,12 @@ export class MusicPlayer {
         const indicator = '⚪';
 
         const streamTime = connection?.dispatcher?.streamTime;
-        const currentTime = fromNP ? '' : client.$utils.formatSeconds(streamTime! / 1000);
-        const timeString = fromNP ? '' : `${currentTime} / ${client.$utils.formatSeconds(duration)}`;
-        const position = fromNP ? duration * counter : Math.floor(((streamTime! / 1000) / duration) * counter);
+        const currentTime = ended ? '' : client.$utils.formatSeconds(streamTime! / 1000);
+        const timeString = ended ? 'Ended' : `${currentTime} / ${client.$utils.formatSeconds(duration)}`;
+        const position = ended ? counter : Math.floor(((streamTime! / 1000) / duration) * counter);
 
-        const durationBar = client.$utils.replaceStrChar(bar, position, indicator);
-        return [durationBar, timeString];
+        const durationBar = `\`\`\`${client.$utils.replaceStrChar(bar, position, indicator)} ${timeString}\`\`\``;
+        return durationBar;
 
     }
 

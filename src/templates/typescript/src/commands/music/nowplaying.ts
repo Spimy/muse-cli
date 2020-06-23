@@ -44,11 +44,11 @@ default class implements CommandExecutor {
         const { current, upcoming, connection } = queue;
         const { title, url, duration, loop, requester, author, authorUrl } = current!;
 
-        const [durationBar, timeString] = player.durationBar(queue);
+        const durationBar = player.durationBar(queue);
         const timeRemaining = client.$utils.formatSeconds(duration - (connection!.dispatcher.streamTime / 1000));
         const upcomingVid = upcoming[0] ? `[${client.$utils.truncateStr(upcoming[0].title, 20)}](${upcoming[0].url})` : 'None';
 
-        embed.setDescription(`[${title}](${url})\n\`\`\`${durationBar} ${timeString}\`\`\``);
+        embed.setDescription(`[${title}](${url})\n${durationBar}`);
         embed.spliceFields(0, 6,
             { name: 'Duration:', value: client.$utils.formatSeconds(duration), inline: true },
             { name: 'Remaining Time:', value: timeRemaining, inline: true },

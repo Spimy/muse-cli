@@ -20,13 +20,13 @@ default class implements CommandExecutor {
         current.paused = true;
         connection?.dispatcher.pause();
 
-        const [durationBar, timeString] = player.durationBar(queue);
+        const durationBar = player.durationBar(queue);
 
         const embed = new MessageEmbed()
             .setColor("RANDOM")
             .setTitle("Successfully Paused")
             .setThumbnail(current.thumbnail)
-            .setDescription(`⏸️ [${current.title}](${current.url}) has been paused\n\`\`\`${durationBar} ${timeString}\`\`\``)
+            .setDescription(`⏸️ [${current.title}](${current.url}) has been paused\n${durationBar}`)
             .setFooter(`Requested by ${message.author.tag}`)
             .setTimestamp()
 
