@@ -51,13 +51,13 @@ default class implements CommandExecutor {
 
     private setEmbed = async (author: User, embed: MessageEmbed, guild: Guild, currentPage: number, pages?: Music[][]) => {
 
-        const { queue } = guild;
+        const { queue, queue: { current, upcoming, loop } } = guild;
         pages = pages ? pages : await this.setupPages(queue);
 
-        const title = queue.upcoming.length > 0 ? `Upcoming - Next ${queue.upcoming.length}` : "Currently Playing";
+        const title = upcoming.length > 0 ? `Upcoming - Next ${upcoming.length}` : "Currently Playing";
 
         const description: string[] = [
-            `Looping queue: ${String(queue.loop)[0].toUpperCase() + String(queue.loop).substring(1)}`
+            `Looping queue: ${String(loop)[0].toUpperCase() + String(loop).substring(1)}`
         ];
 
         const currentListNum = (currentPage * this.itemsPerPage) - this.itemsPerPage;
@@ -67,11 +67,11 @@ default class implements CommandExecutor {
                 `**[${currentListNum + (index + 1)}]:** [${music.title}](${music.url})`
             ).join('\n')}`);
         }
-        description.push(`🎵 **Currently Playing:** [${queue.current?.title}](${queue.current?.url})`);
+        description.push(`🎵 **Currently Playing:** [${current?.title}](${current?.url})`);
 
         embed
             .setTitle(title)
-            .setThumbnail(queue.current!.thumbnail)
+            .setThumbnail(current!.thumbnail)
             .setDescription(description.join('\n\n'))
             .setFooter(`Page ${currentPage} of ${pages.length === 0 ? 1 : pages.length} | Requested by ${author.tag}`)
             .setTimestamp();
