@@ -1,8 +1,9 @@
 import { Queue } from '../../lib/music/Queue';
-import { Music } from '../../lib/music/Music';
+import { Pages } from '../../types';
 import { Command } from "../../lib/commands/Command";
 import { CommandExecutor } from '../../lib/commands/CommandExecutor';
 import { Message, MessageEmbed, User, MessageReaction, Guild, ReactionCollector } from 'discord.js';
+
 
 @Command({
     name: 'queue',
@@ -13,7 +14,6 @@ import { Message, MessageEmbed, User, MessageReaction, Guild, ReactionCollector 
     category: 'Music'
 })
 default class implements CommandExecutor {
-
     private readonly itemsPerPage = 5;
     private readonly reactionTime = 60;
     private readonly next = '⏩';
@@ -36,10 +36,10 @@ default class implements CommandExecutor {
 
     }
 
-    private setupPages = async (queue: Queue): Promise<Music[][]> => {
+    private setupPages = async (queue: Queue): Promise<Pages> => {
 
         const upcoming = [...queue.upcoming];
-        const pages: Music[][] = [];
+        const pages: Pages = [];
 
         while (upcoming.length > 0) {
             pages.push(upcoming.splice(0, this.itemsPerPage));
@@ -49,7 +49,7 @@ default class implements CommandExecutor {
 
     }
 
-    private setEmbed = async (author: User, embed: MessageEmbed, guild: Guild, currentPage: number, pages?: Music[][]) => {
+    private setEmbed = async (author: User, embed: MessageEmbed, guild: Guild, currentPage: number, pages?: Pages) => {
 
         const { queue, queue: { current, upcoming, loop } } = guild;
         pages = pages ? pages : await this.setupPages(queue);
