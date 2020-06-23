@@ -18,9 +18,16 @@ default class implements CommandExecutor {
         const help = this.info as CommandInfo;
 
         const prefix = client.$config.prefix;
+
+        const thumbnail = client.user?.displayAvatarURL({
+            dynamic: false,
+            format: 'png',
+            size: 2048,
+        })!
+
         const embed = new MessageEmbed()
             .setColor('RANDOM')
-            .setThumbnail(client.user!.avatarURL()!)
+            .setThumbnail(thumbnail)
             .setFooter(`Requested by ${message.author.tag}`)
             .setTimestamp();
 
