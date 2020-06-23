@@ -47,7 +47,12 @@ OR
 
 THEN FOR EITHER
 
-- Copy your [discord token](#getting-a-discord-bot-token) and set a command prefix in into [muse.json](muse.json)
+- Copy your [discord token](#getting-a-discord-bot-token) and [YouTube API Key](https://console.cloud.google.com/apis/library/youtube.googleapis.com?id=125bab65-cfb6-4f25-9826-4dcc309bc508) into a `.env` file
+```
+TOKEN=bot_token
+YOUTUBE_API_KEY=api_key
+```
+- Set a command prefix in into [muse.json](muse.json)
 - Run `npm build` or `yarn build` or `tsc -b`
 - Run `npm dev` or `yarn dev` and if you do, skip the next step
 - Run `npm start` or `yarn start` or `node dist/index.js`
