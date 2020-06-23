@@ -133,7 +133,7 @@ default class implements CommandExecutor {
 @Event('') // The name of the event
 class MessageEvent implements EventListener {
 
-    listen = async (message: Message) => {
+    listen = async (/* Pass in appropriate arguments for the event name passed in the decorator */) => {
         // Event code in here
     }
 
