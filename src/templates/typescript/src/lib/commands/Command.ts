@@ -6,7 +6,8 @@ export function Command(info: CommandInfo) {
 
     return function (target: { new(): CommandExecutor }) {
 
-        info = { ...info, name: info.name.toLowerCase() }
+        info = { ...info, name: info.name.toLowerCase() };
+        info.aliases = info.aliases?.map(alias => alias.toLowerCase());
 
         target.prototype.info = { ...info };
 
@@ -14,9 +15,6 @@ export function Command(info: CommandInfo) {
         client.$commands.set(info.name, { info, executor: new target() });
 
         info.aliases?.forEach(alias => {
-
-            alias = alias.toLowerCase();
-
             if (client.$aliases.get(alias)) return console.error(`⚠️ Duplicate command aliases found: ${alias}`);
 
             if (client.$aliases.get(info.name) || client.$commands.get(alias)) {
