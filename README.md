@@ -35,7 +35,7 @@ installing FFmpeg.
 
 ## Commands
 - Start a new project:\
-    `muse (n)ew <project-name> <template> [--git] [--skipInstall] [--packageManager=(npm/yarn)]`\
+    `muse (n)ew <project-name> <template> [--git] [--skipInstall] [--packageManager=(npm/yarn)]`
     
     Templates currently available: TypeScript
 
