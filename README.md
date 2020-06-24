@@ -128,7 +128,7 @@ default class implements CommandExecutor {
 ```
 OR
 
-Use `muse generate command command_name` to generate boilerplate for a command
+Use `muse generate command <command_name>` to generate boilerplate for a command
 
 ## Event File Template
 
@@ -144,7 +144,7 @@ default class implements EventListener {
 ```
 OR
 
-Use `muse generate event event_name` to generate boilerplate for an event
+Use `muse generate event <event_name>` to generate boilerplate for an event
 
 
 ## Author
