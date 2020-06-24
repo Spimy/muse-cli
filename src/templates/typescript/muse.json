@@ -2,10 +2,5 @@
     "version": 1,
     "packageManager": "npm",
     "defaultProject": "muse",
-    "projectTemplate": "typescript",
-
-    "muse": {
-        "prefix": ">",
-        "ownerID": "206737220818698240"
-    }
+    "projectTemplate": "typescript"
 }
