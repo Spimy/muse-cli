@@ -7,9 +7,9 @@ import Listr from 'listr';
 
 import { projectInstall } from 'pkg-install';
 import { promisify } from 'util';
-import { exec } from 'child_process';
 
 const access = promisify(fs.access);
+const exists = promisify(fs.exists);
 const read = promisify(fs.readFile);
 const write = promisify(fs.writeFile);
 const copy = promisify(ncp);
@@ -125,11 +125,68 @@ export const createBot = async (options) => {
     return true;
 }
 
-export const generateComponent = async (options) => {
-    options = {
-        ...options,
-        targetDirectory: options.targetDirectory || process.cwd()
-    };
+const createComponent = async (options, projectTemplate) => {
 
+    let data;
+    if (options.component === 'command') {
+        const { commandTemplate } = require(`./components/${projectTemplate}/command`);
+        data = commandTemplate(options.componentName.split('/').pop(), options.componentName.split('/').length);
+    } else {
+        const { eventTemplate } = require(`./components/${projectTemplate}/event`);
+        data = eventTemplate(options.componentName.split('/').pop(), options.componentName.split('/').length);
+    }
+
+    const extension = projectTemplate === 'typescript' ? 'ts' : 'js';
+    const src = projectTemplate === 'typescript' ? 'src' : '';
+    const componentName = `${camelToSnakeCase(options.componentName)}.${extension}`;
+
+    const dir = path.resolve(options.projectDirectory, src, `${options.component}s`, componentName);
+
+    if (await exists(dir)) {
+        console.error(`${chalk.red.bold('ERROR')} ${options.component[0].toUpperCase() +
+            options.component.substring(1)} '${options.componentName}' already exists.`);
+        process.exit(1);
+    }
+
+    await writeFileSyncRecursive(dir, data, 'utf-8');
 
 }
+
+export const generateComponent = async (options) => {
+
+    options = {
+        ...options,
+        projectDirectory: process.cwd()
+    };
+
+    const muse = require(`${options.projectDirectory}/muse.json`);
+
+    const componentDirectory = path.resolve(
+        __dirname,
+        './components',
+        muse.projectTemplate
+    );
+    options.componentDirectory = componentDirectory;
+
+    await createComponent(options, muse.projectTemplate);
+
+}
+
+
+// Helper Functions
+const writeFileSyncRecursive = async (filename, content, charset) => {
+    const folders = filename.split(path.sep).slice(0, -1)
+    if (folders.length) {
+        // create folder path if it doesn't exist
+        folders.reduce((last, folder) => {
+            const folderPath = last ? last + path.sep + folder : folder
+            if (!fs.existsSync(folderPath)) {
+                fs.mkdirSync(folderPath)
+            }
+            return folderPath
+        })
+    }
+    fs.writeFileSync(filename, content, charset)
+}
+
+const camelToSnakeCase = str => str.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`);
