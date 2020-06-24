@@ -53,7 +53,7 @@ const copyTemplateFiles = async (options) => {
 
 }
 
-const gitInit = async (options) => {
+const gitInit = async (options, counter = 0) => {
 
     try {
         const projectDirectory = path.resolve(options.targetDirectory, options.name);
@@ -66,7 +66,11 @@ const gitInit = async (options) => {
             return Promise.reject(new Error('Failed to initialise Git'));
         }
     } catch {
-        gitInit(options);
+        if (counter < 3) {
+            gitInit(options, counter + 1);
+        } else {
+            throw new Error('Couldn\'t initalise git repository.');
+        }
     }
 
     return;
@@ -119,4 +123,13 @@ export const createBot = async (options) => {
 
     console.log(`${chalk.yellow.bold('DONE')} New muse project has been generated.`);
     return true;
+}
+
+export const generateComponent = async (options) => {
+    options = {
+        ...options,
+        targetDirectory: options.targetDirectory || process.cwd()
+    };
+
+
 }
