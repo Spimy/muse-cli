@@ -34,5 +34,21 @@
     "listr": "^0.14.3",
     "ncp": "^2.0.0",
     "pkg-install": "^1.0.0"
-  }
+  },
+  "keywords": [
+    "nodejs",
+    "discord-music-bot",
+    "music-bot",
+    "music-functions",
+    "music-player",
+    "discord.js",
+    "discord-js-bot",
+    "typescript",
+    "muse",
+    "muse-cli",
+    "cli",
+    "commands",
+    "template",
+    "boilerplate"
+  ]
 }
