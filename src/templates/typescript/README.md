@@ -1,6 +1,6 @@
 # Muse (μ's)
 
-![Muse Logo Image](assets/logo.png)\
+![Muse Logo Image](../../../assets/logo.png)\
 [![Discord Users Online](https://discordapp.com/api/guilds/422469294786347016/widget.png?style=shield)](https://discord.gg/865tNC4)\
 A discord.js bot template already containing music functions\
 You can add to this bot by writing your own commands code and putting in the commands folder
@@ -70,19 +70,19 @@ YOUTUBE_API_KEY=api_key
 
 Note: Do NOT share your bot token with anyone!
 
-![Bot Token Tutorial Image](./assets/bot_token_tutorial.png)
+![Bot Token Tutorial Image](./../../../assets/bot_token_tutorial.png)
 
 ## Features
 
 - Multiple Ways to Start Music:
     1. Play with YouTube video links (also supports YouTube playlist links):\
-    ![Method 1](assets/features/play_command/method_1.png)
+    ![Method 1](../../../assets/features/play_command/method_1.png)
 
     1. Play with search query:\
-    ![Method 2](assets/features/play_command/method_2.png)
+    ![Method 2](../../../assets/features/play_command/method_2.png)
 
     1. Play using search command to make a selection from 10 results:\
-    ![Method 3](assets/features/play_command/method_3.png)
+    ![Method 3](../../../assets/features/play_command/method_3.png)
 
 - Video and Queue Loop:\
     You can make a video or a queue loop.
@@ -91,26 +91,26 @@ Note: Do NOT share your bot token with anyone!
     If queue is looping, the entire queue will never end. This is done by pushing the current video to the
     end of the queue array when it finishes playing
 
-    ![Loop command](assets/features/loop_command.png)
+    ![Loop command](../../../assets/features/loop_command.png)
 
 - Vote Skip if not Admin:\
-    ![Skip command](assets/features/skip_command.png)
+    ![Skip command](../../../assets/features/skip_command.png)
 
 - Paginated Queue Embed:\
     Each page contains up to 5 videos so you need at least 6 videos in the queue for pagination to start\
     The reactor for pagination lasts for 60 seconds. If 60 seconds have passed, rerun the `queue` command for
     pagination to work again\
-    ![Queue embed](assets/features/queue_embed.gif)
+    ![Queue embed](../../../assets/features/queue_embed.gif)
 
 - Duration Bar:\
     Updates every 5 seconds to avoid rate limit\
-    ![Duration bar](assets/features/duration_bar.gif)
+    ![Duration bar](../../../assets/features/duration_bar.gif)
 
 - Clear Whole Queue or Video at Specified Index:\
-    ![Clear queue](assets/features/clear_command.png)
+    ![Clear queue](../../../assets/features/clear_command.png)
 
 - Responsive Help Message:\
-    ![Help message](assets/features/help_message.png)
+    ![Help message](../../../assets/features/help_message.png)
 
 ## Command File Template
 
@@ -133,6 +133,9 @@ default class implements CommandExecutor {
 
 }
 ```
+OR
+
+Use `muse generate command command_name` to generate boilerplate for a command
 
 ## Event File Template
 
@@ -146,6 +149,9 @@ default class implements EventListener {
 
 }
 ```
+OR
+
+Use `muse generate event event_name` to generate boilerplate for an event
 
 ## Author
 
