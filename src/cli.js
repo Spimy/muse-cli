@@ -166,8 +166,6 @@ const promptMissingOpts = async (options) => {
                         return;
                     }
 
-                    console.log(component)
-
                     if (component === COMPONENTS[1] && !events.includes(input.split('/').pop())) {
                         done(`Please enter a valid event name from the list:\n${chalk.red.dim('>>')} [${events.join(', ')}]`);
                         return;
