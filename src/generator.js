@@ -69,7 +69,7 @@ const gitInit = async (options, counter = 0) => {
         if (counter < 3) {
             gitInit(options, counter + 1);
         } else {
-            throw new Error('Failed to initalise git repository.');
+            return Promise.reject(new Error('Failed to initalise git repository.'));
         }
     }
 
