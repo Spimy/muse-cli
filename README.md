@@ -5,33 +5,14 @@
 
 MuseCLI generates a discord.js bot with music features for you! You can use the `generate` subcommand to automatically generate boilerplate codes for commands and events so you don't have to keep rewriting repeated codes!
 
-**NOTICE:** If the bot crashes or song randomly gets skipped with errors similar to `Error: Too many redirects` then
+**NOTICE:** If the bot crashes or music randomly gets skipped with errors similar to `Error: Too many redirects` then
 the error comes from YTDL and I am not responsible for any issues related to said library. If any issues of the like
 persists, open an issue on their [GitHub page](https://github.com/Snowflake107/discord-ytdl-core/issues/).
 
 ## Requirements
 
-- NodeJS
-- FFmpeg
-
-### NodeJS
-
-You are required to have NodeJS installed.\
-If you do not have NodeJS installed, download it at <https://nodejs.org/> and run the installer.
-Once installed, open your command line and run `node -v` to check if it has been properly installed.\
-You must be running at least V12 of NodeJS!
-
-### FFmpeg
-
-You are required to have FFmpeg installed on your machine to play music.\
-If you do not have FFmpeg installed, download it at <https://www.ffmpeg.org/>.
-
-Extract the downloaded files into your C: drive and set up your `PATH` environment variable to the
-`bin` folder. Once you have done this, close and reopen your command line if you already have it
-opened and run `ffmpeg -version` to check if it has been properly installed.
-
-Watch [Linux Leech's Video](https://www.youtube.com/watch?v=qjtmgCb8NcE) if you still need help
-installing FFmpeg.
+- [NodeJS](https://nodejs.org/)
+- [FFmpeg](https://www.ffmpeg.org/)
 
 ## Commands
 - Start a new project:\
@@ -44,45 +25,6 @@ installing FFmpeg.
 
     Components available: `command` and `event`\
     Component name supports relative path, e.g: `admin/ban` will create a ban `command` inside the `admin` folder
-
-## Installation Instructions
-
-- Fork this repo
-- Clone your fork to your local machine
-- CD into the bot's root directory
-- Run `npm install` or `yarn`
-
-OR
-
-- Run `npm install -g muse-cli` or `yarn global add muse-cli`
-- Run `muse new project-name typescript [--git] [--skipInstall] [--packageManager=(npm/yarn)]`
-
-THEN FOR EITHER
-
-- Copy your [discord token](#getting-a-discord-bot-token) and [YouTube API Key](https://console.cloud.google.com/apis/library/youtube.googleapis.com?id=125bab65-cfb6-4f25-9826-4dcc309bc508) into a `.env` file
-```
-TOKEN=bot_token
-YOUTUBE_API_KEY=api_key
-```
-- Set a command prefix in into [muse.json](muse.json)
-- Run `npm build` or `yarn build` or `tsc -b`
-- Run `npm dev` or `yarn dev` and if you do, skip the next step
-- Run `npm start` or `yarn start` or `node dist/index.js`
-
-## Getting a Discord Bot Token
-
-- Head on over to [Discord's Developer Page](https://discordapp.com/developers/applications/)
-- Sign in with your Discord account, if you are not already signed in
-- Click the "New Application" button
-- Give the application a name
-- On the "General Information" Tab, give your application an avatar image
-- Click the bot tab on the left hand side menu
-- Then click "Add Bot" & confirm by clicking "Yes, Do it"
-- Finally, copy the bot token
-
-Note: Do NOT share your bot token with anyone!
-
-![Bot Token Tutorial Image](./assets/bot_token_tutorial.png)
 
 ## Features
 
@@ -123,6 +65,45 @@ Note: Do NOT share your bot token with anyone!
 
 - Responsive Help Message:\
     ![Help message](assets/features/help_message.png)
+
+## Installation Instructions
+
+- Fork this repo
+- Clone your fork to your local machine
+- CD into the bot's root directory
+- Run `npm install` or `yarn`
+
+OR
+
+- Run `npm install -g muse-cli` or `yarn global add muse-cli`
+- Run `muse new project-name typescript [--git] [--skipInstall] [--packageManager=(npm/yarn)]`
+
+THEN FOR EITHER
+
+- Copy your [discord token](#getting-a-discord-bot-token) and [YouTube API Key](https://console.cloud.google.com/apis/library/youtube.googleapis.com?id=125bab65-cfb6-4f25-9826-4dcc309bc508) into a `.env` file in project root folder
+```
+TOKEN=bot_token
+YOUTUBE_API_KEY=api_key
+```
+- Set a command prefix in into [muse.json](muse.json)
+- Run `npm build` or `yarn build` or `tsc -b`
+- Run `npm dev` or `yarn dev` and if you do, skip the next step
+- Run `npm start` or `yarn start` or `node dist/index.js`
+
+## Getting a Discord Bot Token
+
+- Head on over to [Discord's Developer Page](https://discordapp.com/developers/applications/)
+- Sign in with your Discord account, if you are not already signed in
+- Click the "New Application" button
+- Give the application a name
+- On the "General Information" Tab, give your application an avatar image
+- Click the bot tab on the left hand side menu
+- Then click "Add Bot" & confirm by clicking "Yes, Do it"
+- Finally, copy the bot token
+
+Note: Do NOT share your bot token with anyone!
+
+![Bot Token Tutorial Image](./assets/bot_token_tutorial.png)
 
 ## Command File Template
 
