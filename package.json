@@ -11,7 +11,7 @@
   },
   "publishConfig": {
     "access": "public",
-    "registry": "https://npm.pkg.github.com/"
+    "registry": "https://npm.pkg.github.com/@spimy"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
