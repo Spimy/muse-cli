@@ -168,7 +168,7 @@ const promptMissingOpts = async (options) => {
                     }
 
                     if (input.startsWith('/') || input.endsWith('/') || path.isAbsolute(input)) {
-                        done('Sorry, component names cannot start or end with a slash (/)');
+                        done('Sorry, component names cannot start or end with a slash (/) and must be a relative path');
                         return;
                     }
 
