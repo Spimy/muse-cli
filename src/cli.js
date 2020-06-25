@@ -92,8 +92,9 @@ const promptMissingOpts = async (options) => {
 
 
     if (NEW_OP.includes(operation)) {
+        const regex = /^[a-z_\-]+$/;
 
-        if (!options.name) {
+        if (!options.name || !regex.test(options.name)) {
             questions.push({
                 type: 'input',
                 name: 'name',
@@ -101,7 +102,6 @@ const promptMissingOpts = async (options) => {
                 default: defaultName,
                 validate: function (input) {
                     const done = this.async();
-                    const regex = /^[a-z_\-]+$/;
 
                     if (!regex.test(input)) {
                         done('Sorry, name cannot contain capital letters and name cannot contain special characters ("~\'!()*").');
@@ -152,7 +152,8 @@ const promptMissingOpts = async (options) => {
 
         const component = await promptMissingComponent(options);
 
-        if (!options.componentName) {
+        console.log(options.componentName)
+        if (!options.componentName || options.componentName.startsWith('/') || options.componentName.endsWith('/') || path.isAbsolute(options.componentName)) {
             questions.push({
                 type: 'input',
                 name: 'componentName',
@@ -163,6 +164,11 @@ const promptMissingOpts = async (options) => {
 
                     if (!regex.test(input)) {
                         done('Sorry, name cannot contain capital letters and name cannot contain special characters ("~\'!()*").');
+                        return;
+                    }
+
+                    if (input.startsWith('/') || input.endsWith('/') || path.isAbsolute(input)) {
+                        done('Sorry, component names cannot start or end with a slash (/)');
                         return;
                     }
 
