@@ -1,6 +1,6 @@
 # Muse (μ's) CLI
 
-![Muse Logo Image](assets/logo.png)\
+![Muse Logo Image](https://i.imgur.com/nUdeZsJ.png)\
 [![Discord Users Online](https://discordapp.com/api/guilds/422469294786347016/widget.png?style=shield)](https://discord.gg/865tNC4)
 
 MuseCLI generates a discord.js bot with music features for you! You can use the `generate` subcommand to automatically generate boilerplate codes for commands and events so you don't have to keep rewriting repeated codes!
@@ -15,8 +15,11 @@ persists, open an issue on their [GitHub page](https://github.com/Snowflake107/d
 - [FFmpeg](https://www.ffmpeg.org/)
 
 ## Commands
+
+For more details, please check the [Wiki](https://github.com/Spimy/muse-cli/wiki)
+
 - Start a new project:\
-    `muse (n)ew <project-name> <template> [--git] [--skipInstall] [--packageManager=(npm/yarn)]`
+    `muse (n)ew <project-name> <template> [--git] [--skipInstall] [--packageManager=(NPM/yarn)]`
     
     Templates currently available: TypeScript
 
@@ -28,82 +31,113 @@ persists, open an issue on their [GitHub page](https://github.com/Snowflake107/d
 
 ## Features
 
+<details>
+<summary>Start Music</summary>
+
 - Multiple Ways to Start Music:
+
     1. Play with YouTube video links (also supports YouTube playlist links):\
-    ![Method 1](assets/features/play_command/method_1.png)
+    ![Method 1](https://i.imgur.com/70rQ31v.png)
 
     1. Play with search query:\
-    ![Method 2](assets/features/play_command/method_2.png)
+    ![Method 2](https://i.imgur.com/k23pWTS.png)
 
     1. Play using search command to make a selection from 10 results:\
-    ![Method 3](assets/features/play_command/method_3.png)
+    ![Method 3](https://i.imgur.com/ZlR8drJ.png)
 
-- Video and Queue Loop:\
-    You can make a video or a queue loop.
+</details>
+
+
+<details>
+<summary>Video and Queue Loop</summary>
+
+- You can make a video or a queue loop.
 
     If video is looping, it will never jump to the next video unless you turn if off or skip the song\
-    If queue is looping, the entire queue will never end. This is done by pushing the current video to the
-    end of the queue array when it finishes playing
+    If queue is looping, the entire queue will never end.
 
-    ![Loop command](assets/features/loop_command.png)
+    ![Loop command](https://i.imgur.com/4mO29KC.png)
 
-- Vote Skip if not Admin:\
-    ![Skip command](assets/features/skip_command.png)
+</details>
 
-- Paginated Queue Embed:\
-    Each page contains up to 5 videos so you need at least 6 videos in the queue for pagination to start\
+
+<details>
+<summary>Skipping music</summary>
+
+- Vote Skip if not Admin:
+
+    ![Skip command](https://i.imgur.com/cptf7OX.png)
+
+</details>
+
+
+<details>
+<summary>Paginated Queue Embed</summary>
+
+-   Each page contains up to 5 videos so you need at least 6 videos in the queue for pagination to start\
     The reactor for pagination lasts for 60 seconds. If 60 seconds have passed, rerun the `queue` command for
-    pagination to work again\
-    ![Queue embed](assets/features/queue_embed.gif)
+    pagination to work again
 
-- Duration Bar:\
-    Updates every 5 seconds to avoid rate limit\
-    ![Duration bar](assets/features/duration_bar.gif)
+    ![Queue embed](https://i.imgur.com/vUa4YvY.gif)
+
+</details>
+
+
+<details>
+<summary>Duration Bar</summary>
+
+- Updates every 5 seconds to avoid rate limit\
+    ![Duration bar](https://i.imgur.com/k2zqPvy.gif)
+
+</details>
+
+
+<details>
+<summary>Queue and Video Clearing</summary>
 
 - Clear Whole Queue or Video at Specified Index:\
-    ![Clear queue](assets/features/clear_command.png)
+    ![Clear queue](https://i.imgur.com/HNyBvCN.png)
+
+</details>
+
+
+<details>
+<summary>Help Message</summary>
 
 - Responsive Help Message:\
-    ![Help message](assets/features/help_message.png)
+    ![Help message](https://i.imgur.com/Sh5tzpR.png)
 
-## Installation Instructions
+</details>
 
-- Fork this repo
-- Clone your fork to your local machine
-- CD into the bot's root directory
-- Run `npm install` or `yarn`
 
-OR
+</details>
 
-- Run `npm install -g muse-cli` or `yarn global add muse-cli`
-- Run `muse new project-name typescript [--git] [--skipInstall] [--packageManager=(npm/yarn)]`
 
-THEN FOR EITHER
+## Project Setup
 
-- Copy your [discord token](#getting-a-discord-bot-token) and [YouTube API Key](https://console.cloud.google.com/apis/library/youtube.googleapis.com?id=125bab65-cfb6-4f25-9826-4dcc309bc508) into a `.env` file in project root folder
+### Installation Instructions
+
+#### For Development
+
+1. Run `npm install -g muse-cli` or `yarn global add muse-cli`
+2. Run `muse new project-name typescript [--git] [--skipInstall] [--packageManager=(npm/yarn)]`
+
+#### For Contribution
+
+1. Fork this repo
+2. Clone your fork to your local machine
+3. CD into the muse-cli project root directory
+4. Run `npm install` or `yarn`
+5. Create a new branch and make your contribution
+6. Make a pull request on GitHub for me to review
+
+### Sensitive Information
+
+You must at all cost keep your sensitive information like [Discord Bot Token](https://github.com/Spimy/muse-cli/wiki/Getting-a-Discord-Bot-Token) and [YouTube API Key](https://console.cloud.google.com/apis/library/youtube.googleapis.com?id=125bab65-cfb6-4f25-9826-4dcc309bc508) safe and the best way to do that is via environment variables. You can set them directly in your SYSTEM ENV, but setting them inside a `.env` file in your project root folder is recommended:
 ```
 TOKEN=bot_token
 YOUTUBE_API_KEY=api_key
 ```
-- Set a command prefix in into [muse.json](muse.json)
-- Run `npm build` or `yarn build` or `tsc -b`
-- Run `npm dev` or `yarn dev` and if you do, skip the next step
-- Run `npm start` or `yarn start` or `node dist/index.js`
-
-## Getting a Discord Bot Token
-
-- Head on over to [Discord's Developer Page](https://discordapp.com/developers/applications/)
-- Sign in with your Discord account, if you are not already signed in
-- Click the "New Application" button
-- Give the application a name
-- On the "General Information" Tab, give your application an avatar image
-- Click the bot tab on the left hand side menu
-- Then click "Add Bot" & confirm by clicking "Yes, Do it"
-- Finally, copy the bot token
-
-Note: Do NOT share your bot token with anyone!
-
-![Bot Token Tutorial Image](./assets/bot_token_tutorial.png)
 
 ## Command File Template
 
