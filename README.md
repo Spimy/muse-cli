@@ -183,12 +183,12 @@ Use `muse generate event <event_name>` to generate boilerplate for an event
 
 ## Author
 
-[Spimy:](https://github.com/Spimy)
-
+I am Spimy, but my Discord is under a different name most of the time.
 - Discord: Biribiri#6160
-- YouTube: <https://www.youtube.com/channel/UCNfE0E97k3fouJg-2nulLKg>
-- Twitter: <https://twitter.com/OfficialSpimy>
-- Instagram: <http://instagram.com/OfficialSpimy>
+- [GitHub](https://github.com/Spimy)
+- [YouTube Gaming](https://www.youtube.com/channel/UCNfE0E97k3fouJg-2nulLKg)
+- [YouTube Development](https://www.youtube.com/channel/UCEw406qZnsdCEpRgVvCJzuQ)
+- [Twitter](https://twitter.com/OfficialSpimy)
 
 ## Support Server
 
