@@ -9,8 +9,8 @@ default class implements EventListener {
 
         client.user?.setPresence({
             activity: {
-                name: `with ${client.users.cache.get(client.$config.ownerID)?.username}`,
-                type: 'PLAYING'
+                name: 'to commands',
+                type: 'LISTENING'
             },
             status: "dnd"
         });
