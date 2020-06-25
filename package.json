@@ -10,8 +10,7 @@
     "muse": "index.js"
   },
   "publishConfig": {
-    "access": "public",
-    "registry": "https://npm.pkg.github.com/@spimy"
+    "access": "public"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
