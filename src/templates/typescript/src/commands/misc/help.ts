@@ -17,7 +17,7 @@ default class implements CommandExecutor {
         // @ts-ignore
         const help = this.info as CommandInfo;
 
-        const prefix = client.$config.prefix;
+        const { prefixes } = client.$config;
 
         const thumbnail = client.user?.displayAvatarURL({
             dynamic: false,
@@ -37,9 +37,9 @@ default class implements CommandExecutor {
 
             embed.setTitle('-= COMMAND LIST =-');
             embed.setDescription([
-                `**Prefix:** \`${prefix}\``,
+                `**Prefixes:** ${prefixes.map(prefix => `\`${prefix}\``).join(' | ')}`,
                 `<> : Required | [] : Optional`,
-                `Use \`${prefix}${help.name} ${help.usage}\` to view command help with more detail.`
+                `Use \`${prefixes[0]}${help.name} ${help.usage}\` to view command help with more detail.`
             ].join('\n'));
 
             let categorisedCommands;
@@ -74,7 +74,7 @@ default class implements CommandExecutor {
             `Permissions required: ${permissionsRequired ? `\`${command.info.permissions!.join(' | ')}\`` : '`None`'}`
         ].join('\n'));
 
-        embed.addField('Usage', `\`${prefix}${command.info.name}${typeof command.info.usage !== 'undefined' ? ` ${command.info.usage}` : ''}\``);
+        embed.addField('Usage', `\`${prefixes[0]}${command.info.name}${typeof command.info.usage !== 'undefined' ? ` ${command.info.usage}` : ''}\``);
         embed.addField('Aliases', `${aliasesPresent ? command.info.aliases!.map(alias => `\`${alias}\``).join(', ') : '\`None\`'}`);
 
         message.channel.send(embed);
