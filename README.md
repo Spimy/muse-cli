@@ -11,7 +11,7 @@
 ![Libraries.io dependency status for latest release](https://img.shields.io/librariesio/release/npm/muse-cli)
 
 
-MuseCLI generates a discord.js bot with music features for you. You can use the generate command to automatically generate boilerplate for commands and events so you don't have to keep re-writing the same code every time you create a new component.
+MuseCLI generates a discord.js bot with music features for you. You can use the `generate` command to automatically generate boilerplate for commands and events so you don't have to keep re-writing the same code every time you create a new component.
 
 **NOTICE:** If the bot crashes or music randomly gets skipped with errors similar to `Error: Too many redirects` then
 the error comes from YTDL and I am not responsible for any issues related to said library. If any issues of the like
