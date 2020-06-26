@@ -49,11 +49,11 @@ For more details, please check the [Wiki](https://github.com/Spimy/muse-cli/wiki
 
 
 <details>
-<summary>Video and Queue Loop</summary>
+<summary>Music and Queue Loop</summary>
 
-- You can make a video or a queue loop.
+- You can loop the currently playing music or queue.
 
-    If video is looping, it will never jump to the next video unless you turn if off or skip the song\
+    If music is looping, it will never jump to the next music in the queue unless you turn if off or skip it\
     If queue is looping, the entire queue will never end.
 
     ![Loop command](https://i.imgur.com/4mO29KC.png)
@@ -95,7 +95,7 @@ For more details, please check the [Wiki](https://github.com/Spimy/muse-cli/wiki
 <details>
 <summary>Queue and Video Clearing</summary>
 
-- Clear Whole Queue or Video at Specified Index:\
+- Clear the whole queue or a specific music at a specified index:\
     ![Clear queue](https://i.imgur.com/HNyBvCN.png)
 
 </details>
