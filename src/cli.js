@@ -139,7 +139,7 @@ const promptMissingOpts = async (options) => {
             operation: operation,
             name: answers.name || options.name || defaultName,
             template: answers.template || options.template,
-            packageManager: answers.packageManager || DEFAULT_PKG_MANAGER
+            packageManager: answers.packageManager || options.packageManager || DEFAULT_PKG_MANAGER
         };
 
     } else {
