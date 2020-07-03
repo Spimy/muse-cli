@@ -1,6 +1,6 @@
 {
   "name": "muse-cli",
-  "version": "1.1.5",
+  "version": "1.1.8",
   "description": "MuseCLI generates a discord.js bot with music features for you. You can use the generate command to automatically generate boilerplate for commands and events so you don't have to keep re-writing the same code every time you create a new component.",
   "engines": {
     "node": ">=12.0.0"
@@ -10,8 +10,7 @@
     "muse": "index.js"
   },
   "publishConfig": {
-    "access": "public",
-    "registry": "https://npm.pkg.github.com/@spimy"
+    "access": "public"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
