@@ -45,7 +45,7 @@ default class implements CommandExecutor {
             }
         }
 
-        message.channel.send(`🔃 The current \`${type}\` loop has been set to \`${type}\``);
+        message.channel.send(`🔃 The current \`${type}\` loop has been set to \`${bool}\``);
         return true;
     }
 
