@@ -19,6 +19,9 @@ default class implements CommandExecutor {
         if (message.member!.voice.channel !== queue.voiceChannel) return false;
 
         queue.upcoming = [];
+        if (queue.loop) queue.loop = false;
+        if (queue.current.loop) queue.current.loop = false;
+
         queue.connection?.dispatcher.emit('finish');
         return true;
 
