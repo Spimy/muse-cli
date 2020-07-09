@@ -2,7 +2,7 @@ import { Queue } from '../../lib/music/Queue';
 import { Pages } from '../../types';
 import { Command } from '../../lib/commands/Command';
 import { CommandExecutor } from '../../lib/commands/CommandExecutor';
-import { Message, MessageEmbed, User, MessageReaction, Guild, ReactionCollector } from 'discord.js';
+import { Message, MessageEmbed, User, MessageReaction, Guild } from 'discord.js';
 
 
 @Command({

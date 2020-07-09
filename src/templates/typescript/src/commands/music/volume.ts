@@ -1,7 +1,5 @@
 import { Message, VoiceConnection } from 'discord.js';
-import { Music } from '../../lib/music/Music';
 import { Command } from '../../lib/commands/Command';
-import { CommandInfo } from '../../lib/commands/CommandInfo';
 import { CommandExecutor } from '../../lib/commands/CommandExecutor';
 
 @Command({

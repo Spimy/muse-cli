@@ -1,10 +1,8 @@
+import { Message, TextChannel } from 'discord.js';
 import { client } from '../../index';
-import { Music } from '../../lib/music/Music';
 import { Command } from '../../lib/commands/Command';
 import { CommandExecutor } from '../../lib/commands/CommandExecutor';
 
-import { Video } from 'popyt';
-import { Message, TextChannel, GuildMember } from 'discord.js';
 
 @Command({
     name: 'play',
