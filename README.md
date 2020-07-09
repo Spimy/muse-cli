@@ -113,7 +113,8 @@ For more details, please check the [Wiki](https://github.com/Spimy/muse-cli/wiki
 <summary>Help Message</summary>
 
 - Responsive Help Message:\
-    ![Help message](https://i.imgur.com/Sh5tzpR.png)
+    Supports multiple prefixes too
+    ![Help message](https://i.imgur.com/XMmiC48.png)
 
 </details>
 
