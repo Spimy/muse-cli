@@ -127,13 +127,23 @@ export const createBot = async (options) => {
 
 const createComponent = async (options, projectTemplate) => {
 
+    const name = options.componentName.split('/').pop();
+    const subfolderCounter = options.componentName.split('/').length;
+
     let data;
     if (options.component === 'command') {
         const { commandTemplate } = require(`./components/${projectTemplate}/command`);
-        data = commandTemplate(options.componentName.split('/').pop(), options.componentName.split('/').length);
+
+        let category;
+        if (subfolderCounter >= 2) {
+            category = options.componentName.split('/')[options.componentName.split('/').length - 2];
+        }
+        console.log(category)
+
+        data = commandTemplate(name, subfolderCounter, toTitleCase(category));
     } else {
         const { eventTemplate } = require(`./components/${projectTemplate}/event`);
-        data = eventTemplate(options.componentName.split('/').pop(), options.componentName.split('/').length);
+        data = eventTemplate(name, subfolderCounter);
     }
 
     const extension = projectTemplate === 'typescript' ? 'ts' : 'js';
@@ -187,6 +197,16 @@ const writeFileSyncRecursive = async (filename, content, charset) => {
         })
     }
     fs.writeFileSync(filename, content, charset)
+}
+
+const toTitleCase = (string) => {
+    let titled = string.toLowerCase().split(' ');
+
+    for (var i = 0; i < titled.length; i++) {
+        titled[i] = titled[i][0].toUpperCase() + titled[i].slice(1);
+    }
+
+    return titled.join(' ');
 }
 
 const camelToSnakeCase = str => str.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`);
