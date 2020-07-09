@@ -17,7 +17,7 @@ default class implements CommandExecutor {
         // @ts-ignore
         const help = this.info as CommandInfo;
 
-        const { prefixes } = client.$config;
+        const { prefixes } = client.$settings.config;
 
         const thumbnail = client.user?.displayAvatarURL({
             dynamic: false,

@@ -10,7 +10,7 @@ default class implements EventListener {
 
         if (message.author.bot || message.channel.type === 'dm') return;
 
-        const { prefixes } = client.$config;
+        const { prefixes } = client.$settings.config;
         const prefix = prefixes.find(prefix => message.content.startsWith(prefix)) || prefixes[0];
 
         const args = message.content.slice(prefix.length).split(' ');
