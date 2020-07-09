@@ -2,7 +2,7 @@ import { Client, ClientOptions, Collection } from 'discord.js';
 import { CommandProps } from './commands/CommandProps';
 import { Utils } from './Utils';
 import { YouTube } from 'popyt';
-import { config } from '../config';
+import settings from '../settings';
 
 import path from 'path';
 
@@ -12,7 +12,7 @@ export default class MuseClient extends Client {
     private aliases: Collection<string, string> = new Collection();
     private utils: Utils = new Utils();
     private youtube: YouTube = new YouTube(process.env.YOUTUBE_API_KEY!);
-    private config = config;
+    private settings = settings;
 
     constructor(options?: ClientOptions) {
         super(options);
@@ -50,11 +50,11 @@ export default class MuseClient extends Client {
     }
 
     /**
-     * Getter $config
-     * @return {config}
+     * Getter $settings
+     * @return {settings}
      */
-    public get $config() {
-        return this.config;
+    public get $settings() {
+        return this.settings;
     }
 
     /**
