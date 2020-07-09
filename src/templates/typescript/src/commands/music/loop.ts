@@ -22,9 +22,7 @@ default class implements CommandExecutor {
 
         if (!['music', 'queue'].includes(type)) return false;
         if (!['true', 'false'].includes(option)) return false;
-
-        const bool = option == 'true' ? true : (option == 'false' ? false : option);
-        if (typeof bool != 'boolean') return false;
+        const bool = option === 'true' ? true : false;
 
         switch (type) {
             case 'music': {
