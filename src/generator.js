@@ -138,7 +138,6 @@ const createComponent = async (options, projectTemplate) => {
         if (subfolderCounter >= 2) {
             category = options.componentName.split('/')[options.componentName.split('/').length - 2];
         }
-        console.log(category)
 
         data = commandTemplate(name, subfolderCounter, toTitleCase(category));
     } else {
