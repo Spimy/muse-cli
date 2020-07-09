@@ -14,22 +14,19 @@ import { Message, TextChannel, GuildMember } from 'discord.js';
 })
 default class implements CommandExecutor {
 
-    private readonly urlRegex = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
-    private readonly videoRegex = /(?:youtube(?:-nocookie)?\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-    private readonly playlistRegex = /^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/;
-
     execute = async (message: Message, args: string[]): Promise<boolean> => {
 
         if (args.length === 0 || !message.member?.voice.channel) return false;
 
+        const { regex } = client.$settings;
         const { player } = message.guild!;
         const member = message.member;
         const textChannel = <TextChannel>message.channel!;
         const voiceChannel = message.member.voice.channel;
 
-        if (this.urlRegex.test(args[0])) {
+        if (regex.url.test(args[0])) {
 
-            if (this.videoRegex.test(args[0])) {
+            if (regex.youtubeVideo.test(args[0])) {
 
                 const status = await client.$youtube.getVideo(args[0])
                     .then(async video => {
@@ -43,7 +40,7 @@ default class implements CommandExecutor {
                 return status;
             }
 
-            if (this.playlistRegex.test(args[0])) {
+            if (regex.youtubePlaylist.test(args[0])) {
 
                 const status = await client.$youtube.getPlaylist(args[0])
                     .then(async playlist => {

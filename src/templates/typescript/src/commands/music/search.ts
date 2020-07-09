@@ -15,12 +15,11 @@ import { Message, TextChannel, GuildMember, MessageEmbed } from 'discord.js';
 default class implements CommandExecutor {
 
     private readonly selectionTime = 10;
-    private readonly urlRegex = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
 
     execute = async (message: Message, args: string[]): Promise<boolean> => {
 
         if (args.length === 0 || !message.member?.voice.channel) return false;
-        if (this.urlRegex.test(args[0])) {
+        if (client.$settings.regex.url.test(args[0])) {
             return await client.$commands.get('play')?.executor.execute(message, args)!;
         }
 
