@@ -1,5 +1,12 @@
 # Muse (μ's) CLI
 
+## THIS PROJECT HAS BEEN ABANDONED
+
+I myself have made use of MuseCLI for a long time to create my own bots because it is very convenient to set some stuffs up. However, I have officially dropped support for this project. This will be archived very soon. Instead, please check out [@yor/core](https://github.com/Spimy/yor/tree/main/packages/core/) and [@yor/commands](https://github.com/Spimy/yor/tree/main/packages/commands/). The former is a Discord.JS wrapper while the latter is an optional module you can install for the wrapper.
+
+A CLI is being worked on to make the setup easier as it does require quite a bit of initial boilerplate.
+
+## MuseCLI
 ![Muse Logo Image](https://i.imgur.com/nUdeZsJ.png)\
 [![Discord Users Online](https://discordapp.com/api/guilds/422469294786347016/widget.png?style=shield)](https://discord.gg/865tNC4)
 
